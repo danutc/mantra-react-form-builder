@@ -1,19 +1,26 @@
 import Wysiwyg from './custom_elements/wysiwyg.jsx'
 import React from 'react'
 
-// Widget definition 
+// --------------------------------------------------------------------------------
+// Widget definition
+// -------------------------------------------------------------------------------- 
 var WysiwygWidget = (props) => {
+  const {description, value, defaultValue, required, onChange} = props
 
   return React.createElement(Wysiwyg, {
     onChange: function onChange (event) {
-      props.onChange(event.target.value)
+      onChange(event.target.value)
     },
-    value: props.value,
-    required: props.required
+    value: value,
+    required: required,
+    placeholder: description,
+    defaultValue: defaultValue
   })
 }
 
+// --------------------------------------------------------------------------------
 // Common properties for each object
+// --------------------------------------------------------------------------------
 var commonEditFormSchema = {
   type: 'object',
   title: 'General',
@@ -22,11 +29,13 @@ var commonEditFormSchema = {
     class: { type: 'string', title: 'Class' },
     defaultValue: { type: 'string', title: 'Default Value' },
     placeHolder: { type: 'string', title: 'Place Holder' },
-    Hint: { type: 'string', title: 'Hint' }
+    hint: { type: 'string', title: 'Hint' }
   }
 }
 
-// element definition
+// --------------------------------------------------------------------------------
+// Element Definition
+// --------------------------------------------------------------------------------
 const elements = {
   'input': {
     def: { type: 'string', title: 'Input' },
