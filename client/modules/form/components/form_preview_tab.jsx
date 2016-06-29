@@ -12,9 +12,9 @@ class FormPreviewTab extends React.Component {
   render() {
     var {schema, ui, widgets, validation, onChange, onError} = this.props;
 
-    var validateFn = eval(validation) || console.log;
-    var onChangeFn = eval(onChange) || console.log;
-    var onErrorFn = eval(onError) || console.log;
+    var validateFn = eval(validation) || ((data, errors) => console.log(data));
+    var onChangeFn = eval(onChange) || ((data) => console.log(data));
+    var onErrorFn = eval(onError) || ((errors) => console.log(errors));
 
     return (
       <div>
@@ -24,6 +24,7 @@ class FormPreviewTab extends React.Component {
           widgets={widgets}
           validate={(formData, errors) => { validateFn(formData, errors); } }
           onChange={(value) => { onChangeFn(value); } }
+          onError={(value) => { onErrorFn(value); } }
           />
       </div>
     );
