@@ -1,5 +1,6 @@
 import Wysiwyg from './custom_elements/wysiwyg.jsx'
 import React from 'react'
+import deepmerge from 'deepmerge';
 
 // --------------------------------------------------------------------------------
 // Widget definition
@@ -31,7 +32,14 @@ var commonEditFormSchema = {
     placeHolder: { type: 'string', title: 'Place Holder' },
     hint: { type: 'string', title: 'Hint' }
   }
-}
+};
+
+var booleanEditFormSchema = deepmerge(commonEditFormSchema, {
+  title: 'Boolean',
+  properties: {
+    defaultValue: {type: 'boolean', title: 'Checked by default'}
+  }
+});
 
 // --------------------------------------------------------------------------------
 // Element Definition
@@ -46,13 +54,13 @@ const elements = {
   'checkbox': {
     def: { type: 'boolean', title: 'Checkbox', default: false },
     edit: false,
-    editSchema: commonEditFormSchema
+    editSchema: booleanEditFormSchema
   },
   'radio': {
     def: { type: 'boolean', title: 'Radio', default: false },
     ui: { 'ui:widget': 'radio' },
     edit: false,
-    editSchema: commonEditFormSchema
+    editSchema: booleanEditFormSchema
   },
   'textarea': {
     def: { type: 'string', title: 'Textarea' },
