@@ -34,10 +34,12 @@ var commonEditFormSchema = {
   }
 };
 
-var booleanEditFormSchema = deepmerge(commonEditFormSchema, {
-  title: 'Boolean',
+var checkboxEditFormSchema = deepmerge(commonEditFormSchema, {
   properties: {
-    defaultValue: {type: 'boolean', title: 'Checked by default'}
+    checked: { type: 'boolean', 'title': 'Checked by default'},
+    defaultValue: undefined,
+    placeHolder: undefined,
+    hint: undefined
   }
 });
 
@@ -54,13 +56,14 @@ const elements = {
   'checkbox': {
     def: { type: 'boolean', title: 'Checkbox', default: false },
     edit: false,
-    editSchema: booleanEditFormSchema
+    editSchema: checkboxEditFormSchema
   },
+
   'radio': {
     def: { type: 'boolean', title: 'Radio', default: false },
     ui: { 'ui:widget': 'radio' },
     edit: false,
-    editSchema: booleanEditFormSchema
+    editSchema: commonEditFormSchema
   },
   'textarea': {
     def: { type: 'string', title: 'Textarea' },
