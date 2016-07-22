@@ -57,10 +57,11 @@ export default {
 
     var element = form_fields[id]
     console.log('updating')
-
-    console.log(params)
-    console.log(element)
-
+    console.log('STATE BEFORE ===> ');
+    console.log('Params: ', params);
+    console.log('Element: ', element);
+    console.log('Form Fields: ', form_fields);
+    console.log('END ');
     element['ui'] = element['ui'] || {}
     if (params && params['label']) {
       element['def']['title'] = params['label']
@@ -85,6 +86,9 @@ export default {
     element['edit'] = false
     form_fields[id] = element
 
+    console.log('STATE AFTER ===> ');
+    console.log('Form Fields: ', form_fields);
+    console.log('END ');
     LocalState.set('FORM_FIELDS', form_fields)
   }
 }
