@@ -64,7 +64,7 @@ class FormElementBar extends React.Component {
                 <i className="fa fa-plus-square" aria-hidden="true"></i> Wysiwyg
               </a>
             </div>
-           
+            
           </div>
         </div>
       </div>

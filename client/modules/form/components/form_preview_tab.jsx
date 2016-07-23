@@ -15,7 +15,7 @@ class FormPreviewTab extends React.Component {
     var validateFn = eval(validation) || ((data, errors) => console.log(data));
     var onChangeFn = eval(onChange) || ((data) => console.log(data));
     var onErrorFn = eval(onError) || ((errors) => console.log(errors));
-
+    
     return (
       <div>
         <Form schema={schema}

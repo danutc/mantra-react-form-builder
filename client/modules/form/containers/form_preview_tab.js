@@ -1,7 +1,10 @@
 import { useDeps, composeAll, composeWithTracker, compose } from 'mantra-core'
-
+import customWidgetsProcessor from '../libs/custom_elements/customWidgets'
+import React from 'react'
 import FormPreviewTab from '../components/form_preview_tab.jsx'
 import elements from '../libs/form_elements.js'
+
+
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState} = context()
@@ -10,7 +13,7 @@ export const composer = ({context}, onData) => {
 
   finalForm = finalForm || {};
 
-  var form_fields = LocalState.get('FORM_FIELDS')
+  var form_fields = customWidgetsProcessor(LocalState.get('FORM_FIELDS'));
   var schema = {
     type: 'object',
     properties: {}
@@ -25,7 +28,8 @@ export const composer = ({context}, onData) => {
 
     // becareful, can override the other one
     if (form_fields[key]['ui']) {
-      var widgets = form_fields[key]['widget']
+      var widgets = form_fields[key]['widget'];
+
       var widgetName = form_fields[key]['ui']['ui:widget']
       var widgetCollection = widgets ? elements[widgetName]['widget'] : {}
 
@@ -38,14 +42,14 @@ export const composer = ({context}, onData) => {
   finalForm['widgets'] = widgets;
 
   // save to the state so we can get it for the other action like save 
-  LocalState.set('FINAL_FORM_ENTITY', finalForm)
+  LocalState.set('FINAL_FORM_ENTITY', finalForm);
 
-  onData(null, LocalState.get('FINAL_FORM_ENTITY'))
-}
+  onData(null, customWidgetsProcessor(finalForm));
+};
 
 export const depsMapper = (context, actions) => ({
   context: () => context
-})
+});
 
 export default composeAll(
   composeWithTracker(composer),

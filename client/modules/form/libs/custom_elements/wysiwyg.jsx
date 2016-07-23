@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {
   Editor,
   EditorState,
@@ -13,7 +12,7 @@ class Wysiwyg extends React.Component {
     super(props);
 
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editorState: EditorState.createEmpty()
     };
 
     this.focus = () => this.refs.editor.focus();
@@ -172,7 +171,7 @@ var INLINE_STYLES = [
   { label: 'Bold', style: 'BOLD' },
   { label: 'Italic', style: 'ITALIC' },
   { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' },
+  { label: 'Monospace', style: 'CODE' }
 ];
 
 const InlineStyleControls = (props) => {

@@ -42,6 +42,7 @@
     "sequelize": "^3.23.4"
   },
   "devDependencies": {
+    "assert": "^1.4.1",
     "babel-core": "6.x.x",
     "babel-plugin-react-require": "2.x.x",
     "babel-polyfill": "6.x.x",

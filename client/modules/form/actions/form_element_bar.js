@@ -12,7 +12,6 @@ export default {
     var seed = new Date().getTime();
     
     form_fields['Input_' + seed] = elements[element];
-
     LocalState.set('FORM_FIELDS', form_fields);
   }
 }

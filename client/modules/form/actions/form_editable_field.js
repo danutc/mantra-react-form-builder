@@ -83,8 +83,8 @@ export default {
       element['def']['description'] = params['placeHolder']
     }
 
-    element['edit'] = false
-    form_fields[id] = element
+    element['edit'] = false;
+    form_fields[id] = element;
 
     console.log('STATE AFTER ===> ');
     console.log('Form Fields: ', form_fields);

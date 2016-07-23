@@ -1,6 +1,7 @@
 import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
-
 import FormBuilderTab from '../components/form_builder_tab.jsx';
+import customWidgetsProcessor from '../libs/custom_elements/customWidgets'
+import React from 'react'
 
 var schema = {
   type: "object",
@@ -17,7 +18,7 @@ export const composer = ({context}, onData) => {
   }
 
   onData(null, {
-    formFields: LocalState.get('FORM_FIELDS') 
+    formFields: customWidgetsProcessor(LocalState.get('FORM_FIELDS'))
   });
   
 };

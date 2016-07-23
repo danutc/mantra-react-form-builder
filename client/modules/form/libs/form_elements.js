@@ -1,23 +1,5 @@
-import Wysiwyg from './custom_elements/wysiwyg.jsx'
 import React from 'react'
 import deepmerge from 'deepmerge';
-
-// --------------------------------------------------------------------------------
-// Widget definition
-// -------------------------------------------------------------------------------- 
-var WysiwygWidget = (props) => {
-  const {description, value, defaultValue, required, onChange} = props
-
-  return React.createElement(Wysiwyg, {
-    onChange: function onChange (event) {
-      onChange(event.target.value)
-    },
-    value: value,
-    required: required,
-    placeholder: description,
-    defaultValue: defaultValue
-  })
-}
 
 // --------------------------------------------------------------------------------
 // Common properties for each object
@@ -96,7 +78,7 @@ const elements = {
     ui: {
       'ui:widget': 'wysiwyg'
     },
-    widget: {'wysiwyg': WysiwygWidget},
+    widget: { 'wysiwyg': 'widgetLoader::wysiwyg' },
     edit: false,
     editSchema: commonEditFormSchema
   }
