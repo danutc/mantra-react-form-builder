@@ -17,8 +17,11 @@ export const composer = ({context}, onData) => {
     LocalState.set('FORM_FIELDS', {});
   }
 
+  let customWidgets = customWidgetsProcessor(LocalState.get('FORM_FIELDS'));
+  debugger;
+
   onData(null, {
-    formFields: customWidgetsProcessor(LocalState.get('FORM_FIELDS'))
+    formFields: customWidgets
   });
   
 };

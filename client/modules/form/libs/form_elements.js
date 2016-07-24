@@ -81,6 +81,15 @@ const elements = {
     widget: { 'wysiwyg': 'widgetLoader::wysiwyg' },
     edit: false,
     editSchema: commonEditFormSchema
+  },
+  'paymentStatus': {
+    def: { type: 'string', title: 'Payment Status' },
+    ui: {
+      'ui:widget': 'paymentStatus'
+    },
+    widget: { 'paymentStatus': 'widgetLoader::paymentStatus' },
+    edit: false,
+    editSchema: commonEditFormSchema
   }
 }
 

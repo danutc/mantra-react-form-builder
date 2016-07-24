@@ -1,6 +1,7 @@
 import assert from 'assert';
 import React from 'react';
 import Wysiwyg from './wysiwyg';
+import PaymentStatus from './paymentStatus';
 
 let WysiwygWidget = (props) => {
     const {description, value, defaultValue, required, onChange} = props
@@ -16,8 +17,23 @@ let WysiwygWidget = (props) => {
     })
 };
 
+let PaymentStatusWidget = (props) => {
+    const {description, value, defaultValue, required, onChange} = props
+
+    return React.createElement(PaymentStatus, {
+        onChange: function onChange (event) {
+            onChange(event.target.value)
+        },
+        value: value,
+        required: required,
+        placeholder: description,
+        defaultValue: defaultValue
+    })
+};
+
 const widgetsMap = {
-    'wysiwyg': WysiwygWidget
+    'wysiwyg': WysiwygWidget,
+    'paymentStatus': PaymentStatusWidget
 };
 
 export default function deepSchemaLookup(inputSchema) {
