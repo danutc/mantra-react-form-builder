@@ -9,7 +9,9 @@ class FormBuilderTab extends React.Component {
   renderEditableField() {
     if (this.props.formFields) {
       return _.map(this.props.formFields, function (value, id) {
-        if (value.ui['ui:widget']) {
+        if (typeof value.ui === 'object'
+          && value.ui['ui:widget']
+          && typeof value.widget === 'object') {
           value.ui['ui:widget'] = value.widget[value.ui['ui:widget']];
         }
         return (
