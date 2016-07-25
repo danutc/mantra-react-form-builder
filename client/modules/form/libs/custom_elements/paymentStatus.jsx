@@ -12,9 +12,9 @@ class PaymentStatus extends React.Component {
     super(props);
 
     this.state = {
-      total: null,
-      balance: null,
-      result: null,
+      total: 0,
+      balance: 0,
+      result: '',
       purchase: false
     };
 
@@ -26,6 +26,8 @@ class PaymentStatus extends React.Component {
     };
 
     this.onChange = (state) => this.setState(state);
+    this.onBalanceChange = (balance) => this.setState({balance});
+    this.onTotalChange = (total) => this.setState({total});
     this.onTogglePurchase = (purchase) => this.setState({purchase});
   }
 
@@ -41,9 +43,9 @@ class PaymentStatus extends React.Component {
     } else {
       if (state.balance === 0) {
         result = this.purchaseMessages.paymentInFull;
-      } else if (state.balance <= 50) {
+      } else if ((state.balance / 100) * state.total <= 50) {
         result = this.purchaseMessages.partGreater;
-      } else {
+      } else if ((state.balance / 100) * state.total  > 50) {
         result = this.purchaseMessages.partLess;
       }
     }
@@ -64,10 +66,12 @@ class PaymentStatus extends React.Component {
         <TotalField
           total={total}
           hide={hideTotal}
+          onChange={this.onTotalChange}
         />
         <BalanceField
           balance={balance}
           hide={hideBalance}
+          onChange={this.onBalanceChange}
         />
         <ResultField
           result={result}
@@ -86,7 +90,7 @@ class PurchaseField extends React.Component {
     super();
     this.onToggle = (e) => {
       e.preventDefault();
-      this.props.onToggle(this.props.purchase);
+      this.props.onToggle(!this.props.purchase);
     };
   }
 
@@ -101,6 +105,13 @@ class PurchaseField extends React.Component {
 }
 
 class BalanceField extends React.Component {
+  constructor() {
+    super();
+    this.onChange = (e) => {
+      this.props.onChange(e.currentTarget.value);
+    };
+  }
+
   render() {
     if (this.props.hide) {
       return null;
@@ -108,13 +119,20 @@ class BalanceField extends React.Component {
     return (
       <span>
         <span className="PaymentStatus-balance--label">Balance:</span>
-        <span className="PaymentStatus-balance--field"><input type="text" readonly value={this.props.balance} /></span>
+        <span className="PaymentStatus-balance--field"><input type="text" value={this.props.balance}  onChange={this.onChange} /></span>
       </span>
     );
   }
 }
 
 class TotalField extends React.Component {
+  constructor() {
+    super();
+    this.onChange = (e) => {
+      this.props.onChange(e.currentTarget.value);
+    };
+  }
+
   render() {
     if (this.props.hide) {
       return null;
@@ -122,7 +140,7 @@ class TotalField extends React.Component {
     return (
       <span>
         <span className="PaymentStatus-total--label">Total:</span>
-        <span className="PaymentStatus-total--field"><input type="text" readonly value={this.props.total} /></span>
+        <span className="PaymentStatus-total--field"><input type="text" value={this.props.total} onChange={this.onChange} /></span>
       </span>
     );
   }
