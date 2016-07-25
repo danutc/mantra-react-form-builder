@@ -34,18 +34,20 @@ class PaymentStatus extends React.Component {
   mapBussinesRules(state) {
     let hideTotal = false,
       hideBalance = false,
-      result = '';
+      result = '',
+      balance = parseInt(state.balance, 10),
+      total = parseInt(state.total, 10);
 
     if (state.purchase) {
       hideTotal = true;
       hideBalance = true;
       result = this.purchaseMessages.purchaseOrder;
     } else {
-      if (state.balance === 0) {
+      if (balance === 0) {
         result = this.purchaseMessages.paymentInFull;
-      } else if ((state.balance / 100) * state.total <= 50) {
+      } else if ((balance / 100) * total <= 50) {
         result = this.purchaseMessages.partGreater;
-      } else if ((state.balance / 100) * state.total  > 50) {
+      } else if ((balance / 100) * total  > 50) {
         result = this.purchaseMessages.partLess;
       }
     }
