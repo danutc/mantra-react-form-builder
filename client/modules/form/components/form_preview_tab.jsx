@@ -23,8 +23,8 @@ class FormPreviewTab extends React.Component {
           uiSchema={ui}
           widgets={widgets}
           validate={validateFn}
-          onChange={(value) => { onChangeFn(value); } }
-          onError={(value) => { onErrorFn(value); } }
+          onChange={onChangeFn}
+          onError={onErrorFn}
           />
       </div>
     );
