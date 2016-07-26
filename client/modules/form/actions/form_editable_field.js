@@ -83,8 +83,19 @@ export default {
       element['def']['description'] = params['placeHolder']
     }
 
+    let name = "";
+    if (params && params['name']) {
+      name = params['name'];
+    }
+
     element['edit'] = false;
-    form_fields[id] = element;
+
+    if (name) {
+      form_fields[name] = element;
+
+      delete form_fields[id]
+    }
+    
 
     console.log('STATE AFTER ===> ');
     console.log('Form Fields: ', form_fields);
