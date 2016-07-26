@@ -16,7 +16,11 @@ class Wysiwyg extends React.Component {
     };
 
     this.focus = () => this.refs.editor.focus();
-    this.onChange = (editorState) => this.setState({ editorState });
+    this.onChange = (editorState) => {
+      let {onChange} = this.props;
+      onChange(editorState);
+      this.setState({ editorState })
+    };
 
     this.handleKeyCommand = (command) => this._handleKeyCommand(command);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
