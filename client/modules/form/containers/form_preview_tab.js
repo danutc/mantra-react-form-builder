@@ -20,7 +20,7 @@ export const composer = ({context}, onData) => {
   }
 
   var ui = {}
-  var widgets = {}
+  var globWidgets = {}
 
   for (var key in form_fields) {
     ui[key] = form_fields[key]['ui']
@@ -33,17 +33,19 @@ export const composer = ({context}, onData) => {
       var widgetName = form_fields[key]['ui']['ui:widget']
       var widgetCollection = widgets ? elements[widgetName]['widget'] : {}
 
-      widgets = _.extend(widgets, widgetCollection)
+      globWidgets = _.extend(globWidgets, widgets, widgetCollection)
     }
   }
 
   finalForm['schema'] = schema;
   finalForm['ui'] = ui;
-  finalForm['widgets'] = widgets;
+  finalForm['widgets'] = globWidgets;
 
   // save to the state so we can get it for the other action like save 
   LocalState.set('FINAL_FORM_ENTITY', finalForm);
-  onData(null, customWidgetsProcessor(finalForm));
+  let finalFormWithWidgets = customWidgetsProcessor(finalForm);
+
+  onData(null, finalFormWithWidgets);
 };
 
 export const depsMapper = (context, actions) => ({
