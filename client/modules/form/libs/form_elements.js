@@ -7,9 +7,11 @@ import deepmerge from 'deepmerge';
 var commonEditFormSchema = {
   type: 'object',
   title: 'General',
+  
   properties: {
     label: { type: 'string', title: 'Label' },
     class: { type: 'string', title: 'Class' },
+    name: { type: 'string', title: 'Name' },
     defaultValue: { type: 'string', title: 'Default Value' },
     placeHolder: { type: 'string', title: 'Place Holder' },
     hint: { type: 'string', title: 'Hint' }
