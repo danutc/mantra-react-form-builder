@@ -60,11 +60,12 @@ const elements = {
     edit: false,
     editSchema: commonEditFormSchema
   },
-  'datetime': {
-    def: { type: 'string', title: 'Date Time', format: 'date-time' },
-    edit: false,
-    editSchema: commonEditFormSchema
-  },
+  // Commented, because current implementation doesn't allow to select time
+  // 'datetime': {
+  //   def: { type: 'string', title: 'Date Time', format: 'date-time' },
+  //   edit: false,
+  //   editSchema: commonEditFormSchema
+  // },
   'email': {
     def: { type: 'string', title: 'Email', format: 'email' },
     edit: false,
@@ -83,6 +84,14 @@ const elements = {
     widget: { 'wysiwyg': 'widgetLoader::wysiwyg' },
     edit: false,
     editSchema: commonEditFormSchema
+  },
+  'dateTime': {
+    def: { type: 'string', title: 'Date Time', format: 'MM/DD/YY h:mm A' },
+    ui: {
+      'ui:widget': 'dateTime'
+    },
+    widget: { 'dateTime': 'widgetLoader::dateTime' },
+    edit: false
   }
 }
 

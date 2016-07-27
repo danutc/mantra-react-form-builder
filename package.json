@@ -55,7 +55,9 @@
     "eslint-plugin-react": "4.3.x",
     "jsdom": "^8.0.4",
     "mocha": "2.x.x",
+    "moment": "^2.14.1",
     "react-addons-test-utils": "^15.0.0",
+    "react-bootstrap-datetimepicker": "0.0.22",
     "sinon": "1.17.x"
   }
 }

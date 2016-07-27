@@ -1,6 +1,7 @@
 import assert from 'assert'
 import React from 'react'
 import Wysiwyg from './wysiwyg'
+import DateTime from './dateTime'
 
 let WysiwygWidget = (props) => {
   const {description, value, defaultValue, required, onChange} = props
@@ -16,8 +17,26 @@ let WysiwygWidget = (props) => {
   })
 }
 
+let DateTimeWidget = (props) => {
+  const {description, value, defaultValue, required} = props;
+  const format = props.schema.format;
+  const _onChange = props.onChange;
+
+  return React.createElement(DateTime, {
+    onChange: function onChange (state) {
+      return _onChange(state.datetime);
+    },
+    value,
+    required,
+    placeholder: description,
+    defaultValue,
+    format
+  })
+}
+
 const widgetsMap = {
-  'wysiwyg': WysiwygWidget
+  'wysiwyg': WysiwygWidget,
+  'dateTime': DateTimeWidget
 }
 
 export default function deepSchemaLookup (inputSchema) {
