@@ -85,7 +85,7 @@ class Wysiwyg extends React.Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
-            placeholder="Tell a story..."
+            placeholder=""
             ref="editor"
             spellCheck={true}
             />
