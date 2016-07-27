@@ -43,7 +43,6 @@ export const composer = ({context}, onData) => {
 
   // save to the state so we can get it for the other action like save 
   LocalState.set('FINAL_FORM_ENTITY', finalForm);
-
   onData(null, customWidgetsProcessor(finalForm));
 };
 

@@ -90,8 +90,7 @@ const elements = {
       'ui:widget': 'paymentStatus'
     },
     widget: { 'paymentStatus': 'widgetLoader::paymentStatus' },
-    edit: false,
-    editSchema: commonEditFormSchema
+    edit: false
   }
 }
 

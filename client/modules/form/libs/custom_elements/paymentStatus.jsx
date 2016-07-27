@@ -21,14 +21,24 @@ class PaymentStatus extends React.Component {
     this.purchaseMessages = {
       purchaseOrder: 'Purchase Order',
       paymentInFull: 'Payment in full',
+      noPaymentReceived: 'No payment received',
       partGreater: 'Part payment greater than 50',
       partLess: 'Part payment less than 50'
     };
 
-    this.onChange = (state) => this.setState(state);
-    this.onBalanceChange = (balance) => this.setState({balance});
-    this.onTotalChange = (total) => this.setState({total});
-    this.onTogglePurchase = (purchase) => this.setState({purchase});
+    this.onBalanceChange = (balance) => {
+      this.setState({balance}, () => this.props.onChange(this.state));
+    };
+    this.onTotalChange = (total) => {
+      this.setState({total}, () => this.props.onChange(this.state));
+    };
+    this.onTogglePurchase = (purchase) => {
+      this.setState({purchase}, () => this.props.onChange(this.state));
+    };
+
+    this.onTogglePurchase.bind(this);
+    this.onTotalChange.bind(this);
+    this.onBalanceChange.bind(this);
   }
 
   mapBussinesRules(state) {
@@ -43,7 +53,9 @@ class PaymentStatus extends React.Component {
       hideBalance = true;
       result = this.purchaseMessages.purchaseOrder;
     } else {
-      if (balance === 0) {
+      if (balance === 0 && total === 0) {
+        result = this.purchaseMessages.noPaymentReceived;
+      } else if (balance === 0) {
         result = this.purchaseMessages.paymentInFull;
       } else if ((balance / 100) * total <= 50) {
         result = this.purchaseMessages.partGreater;
@@ -60,9 +72,7 @@ class PaymentStatus extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const { hideTotal, hideBalance, total, balance, result, purchase } = this.mapBussinesRules(this.state);
-
     return (
       <div className="PaymentStatus-root">
         <TotalField

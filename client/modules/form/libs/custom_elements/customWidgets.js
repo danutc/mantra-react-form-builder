@@ -4,11 +4,12 @@ import Wysiwyg from './wysiwyg';
 import PaymentStatus from './paymentStatus';
 
 let WysiwygWidget = (props) => {
-  const {description, value, defaultValue, required, onChange} = props
+  const {description, value, defaultValue, required} = props;
+  const _onChange = props.onChange;
 
   return React.createElement(Wysiwyg, {
     onChange: function onChange (editorState) {
-      console.log(editorState.getCurrentContent().getPlainText())
+      return _onChange(editorState.getCurrentContent().getPlainText());
     },
     value: 'test',
     required: required,
@@ -18,16 +19,13 @@ let WysiwygWidget = (props) => {
 }
 
 let PaymentStatusWidget = (props) => {
-    const {description, value, defaultValue, required, onChange} = props
+    const _onChange = props.onChange;
 
     return React.createElement(PaymentStatus, {
-        onChange: function onChange (event) {
-            onChange(event.target.value)
-        },
-        value: value,
-        required: required,
-        placeholder: description,
-        defaultValue: defaultValue
+        onChange(state) {
+          const {balance, total, result, purchase} = state;
+          return _onChange({balance, total, result, purchase});
+        }
     })
 };
 
