@@ -1,32 +1,31 @@
 import React from 'react';
-import DateTimeField from 'react-bootstrap-datetimepicker';
+import DateTimeField from 'react-datetime';
 import moment from 'moment';
-import 'react-bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css';
+import 'react-datetime/css/react-datetime.css';
 
 class DateTime extends React.Component {
   constructor(props) {
     super(props);
-    const {description, value, defaultValue, required, format} = props;
-    this.format = format;
+    const {description, value, defaultValue, required, format, onChange} = props;
     this.state = {
-      datetime: defaultValue || ''
+      datetime: defaultValue || moment().format(this.props.format)
     };
 
-    this.onChange = (seconds) => {
-      let {onChange} = this.props;
-      let datetime = moment(new Date(parseInt(seconds, 10))).format(this.format);
-      this.setState({ datetime }, () => onChange(this.state));
+    this.onChange = (dateObject) => {
+      let datetime = dateObject.format(this.props.format);
+      this.setState({ datetime });
+      onChange({ datetime });
     };
 
     this.onChange.bind(this);
   }
 
   render() {
+
     return <DateTimeField
       onChange={this.onChange}
-      defaultText={this.state.datetime}
-      inputFormat={this.format}
-      defaultText={this.format}
+      dateFormat={this.props.format.replace('LT ', '')}
+      defaultValue={this.state.datetime}
     />;
   }
 }

@@ -86,12 +86,13 @@ const elements = {
     editSchema: commonEditFormSchema
   },
   'dateTime': {
-    def: { type: 'string', title: 'Date Time', format: 'MM/DD/YY h:mm A' },
+    def: { type: 'string', title: 'Date Time', format: 'LT ddd DD/MM/YYYY' },
     ui: {
       'ui:widget': 'dateTime'
     },
     widget: { 'dateTime': 'widgetLoader::dateTime' },
-    edit: false
+    edit: false,
+    editSchema: commonEditFormSchema
   }
 }
 
