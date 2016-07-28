@@ -85,7 +85,12 @@ const elements = {
     editSchema: commonEditFormSchema
   },
   'paymentStatus': {
-    def: { type: 'string', title: ' ' },
+    def: { type: 'string', title: ' ', default: {
+      total: 0,
+      balance: 0,
+      result: '',
+      purchase: false}
+    },
     ui: {
       'ui:widget': 'paymentStatus'
     },

@@ -22,8 +22,8 @@ class PaymentStatus extends React.Component {
       purchaseOrder: 'Purchase Order',
       paymentInFull: 'Payment in full',
       noPaymentReceived: 'No payment received',
-      partGreater: 'Part payment greater than 50%',
-      partLess: 'Part payment less than 50%'
+      partGreater: 'Partial payment greater than 50%',
+      partLess: 'Partial payment less than 50%'
     };
 
     this.onBalanceChange = (balance) => {
