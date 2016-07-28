@@ -76,7 +76,8 @@ class PaymentStatus extends React.Component {
   render() {
     const { hideTotal, hideBalance, total, balance, result, purchase } = this.mapBussinesRules(this.state);
     const totalBalanceStyles = {
-      display: 'flex'
+      display: 'flex',
+      marginTop: '5px'
     };
 
     return (
@@ -176,7 +177,7 @@ class TotalField extends React.Component {
 class ResultField extends React.Component {
   render() {
     return (
-      <div>
+      <div style={{marginTop: '5px'}}>
         <span className="PaymentStatus-result--label control-label">Payment Status</span>
         <div className="PaymentStatus-result--field"><input type="text" className="form-control" disabled="true" value={this.props.result} /></div>
       </div>
