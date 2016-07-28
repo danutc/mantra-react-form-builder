@@ -7,6 +7,8 @@ import {
   Immutable
 } from 'draft-js';
 
+const allowedNumericValues = /^[0-9]{1,}$/;
+
 class PaymentStatus extends React.Component {
   constructor(props) {
     super(props);
@@ -125,7 +127,11 @@ class BalanceField extends React.Component {
   constructor() {
     super();
     this.onChange = (e) => {
-      this.props.onChange(e.currentTarget.value);
+      if (allowedNumericValues.test(e.currentTarget.value)) {
+        this.props.onChange(e.currentTarget.value);
+      } else {
+        return false;
+      }
     };
   }
 
@@ -136,7 +142,7 @@ class BalanceField extends React.Component {
     return (
       <div  style={{flex: 1, marginLeft: '5px'}}>
         <span className="PaymentStatus-balance--label control-label">Balance</span>
-        <div className="PaymentStatus-balance--field"><input type="number" min="0" className="form-control" value={this.props.balance}  onChange={this.onChange} /></div>
+        <div className="PaymentStatus-balance--field"><input type="number" min="0" className="form-control" value={this.props.balance} onChange={this.onChange} /></div>
       </div>
     );
   }
@@ -146,7 +152,11 @@ class TotalField extends React.Component {
   constructor() {
     super();
     this.onChange = (e) => {
-      this.props.onChange(e.currentTarget.value);
+      if (allowedNumericValues.test(e.currentTarget.value)) {
+        this.props.onChange(e.currentTarget.value);
+      } else {
+        return false;
+      }
     };
   }
 
