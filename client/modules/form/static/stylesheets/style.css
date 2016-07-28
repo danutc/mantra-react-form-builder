@@ -43,7 +43,9 @@
 }
 
 .RichEditor-editor .public-DraftEditor-content {
-  min-height: 100px;
+  overflow-y: scroll; 
+  height:150px;
+  resize: vertical;
 }
 
 .RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
@@ -83,4 +85,9 @@
 
 .RichEditor-activeButton {
   color: #5890ff;
+}
+
+.Droppable:hover {
+  background: #f5f5f5;
+  padding-left:3px;
 }
