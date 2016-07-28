@@ -56,12 +56,12 @@ export default {
     var form_fields = LocalState.get('FORM_FIELDS')
 
     var element = form_fields[id]
-    console.log('updating')
-    console.log('STATE BEFORE ===> ')
-    console.log('Params: ', params)
-    console.log('Element: ', element)
-    console.log('Form Fields: ', form_fields)
-    console.log('END ')
+    // console.log('updating')
+    // console.log('STATE BEFORE ===> ')
+    // console.log('Params: ', params)
+    // console.log('Element: ', element)
+    // console.log('Form Fields: ', form_fields)
+    // console.log('END ')
     element['ui'] = element['ui'] || {}
 
     let updateElement = (ele, key, value) => {
@@ -79,7 +79,6 @@ export default {
     }
 
     if (params && params['name']) {
-      element['def']['default'] = params['name']
       updateElement(element, 'name', params['name'])
     }
 
@@ -104,16 +103,28 @@ export default {
     }
 
     element['edit'] = false
+
     if (name) {
       console.log(name)
-      form_fields[name] = element
+      let reorderFormFields = (fields, o, n, ele) => {
+        let cloned = {}
+        for (let k in fields) {
+          if (k != o) {
+            cloned[k] = fields[k]
+          } else {
+            cloned[n] = element
+          }
+        }
 
-      delete form_fields[id]
+        return cloned
+      }
+
+      form_fields = reorderFormFields(form_fields, id, name, element);
     }
 
-    console.log('STATE AFTER ===> ')
-    console.log('Form Fields: ', form_fields)
-    console.log('END ')
+    // console.log('STATE AFTER ===> ')
+    // console.log('Form Fields: ', form_fields)
+    // console.log('END ')
     LocalState.set('FORM_FIELDS', form_fields)
   }
 }
