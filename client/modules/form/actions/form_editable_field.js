@@ -104,8 +104,8 @@ export default {
     }
 
     element['edit'] = false
-
     if (name) {
+      console.log(name)
       form_fields[name] = element
 
       delete form_fields[id]
