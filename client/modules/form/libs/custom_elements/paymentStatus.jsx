@@ -7,7 +7,7 @@ import {
   Immutable
 } from 'draft-js';
 
-const allowedNumericValues = /^[0-9]{1,}$/;
+const allowedNumericValues = /^\d+(?:\.\d{0,2})$/;
 
 class PaymentStatus extends React.Component {
   constructor(props) {
@@ -16,12 +16,12 @@ class PaymentStatus extends React.Component {
     this.state = {
       total: 0,
       balance: 0,
-      result: '',
+      paymentStatus: '',
       purchase: false
     };
 
     this.purchaseMessages = {
-      purchaseOrder: 'Purchase Order',
+      purchaseOrder: 'Purchase order',
       paymentInFull: 'Payment in full',
       noPaymentReceived: 'No payment received',
       partGreater: 'Partial payment greater than 50%',
@@ -29,9 +29,11 @@ class PaymentStatus extends React.Component {
     };
 
     this.onBalanceChange = (balance) => {
+      balance = parseInt(balance, 10);
       this.setState({balance}, () => this.props.onChange(this.state));
     };
     this.onTotalChange = (total) => {
+      total = parseInt(total, 10);
       this.setState({total}, () => this.props.onChange(this.state));
     };
     this.onTogglePurchase = (purchase) => {
@@ -46,35 +48,35 @@ class PaymentStatus extends React.Component {
   mapBussinesRules(state) {
     let hideTotal = false,
       hideBalance = false,
-      result = '',
+      paymentStatus = '',
       balance = parseInt(state.balance, 10),
       total = parseInt(state.total, 10);
 
     if (state.purchase) {
       hideTotal = true;
       hideBalance = true;
-      result = this.purchaseMessages.purchaseOrder;
+      paymentStatus = this.purchaseMessages.purchaseOrder;
     } else {
       if (balance === 0 && total === 0) {
-        result = this.purchaseMessages.noPaymentReceived;
+        paymentStatus = this.purchaseMessages.noPaymentReceived;
       } else if (balance === 0) {
-        result = this.purchaseMessages.paymentInFull;
+        paymentStatus = this.purchaseMessages.paymentInFull;
       } else if ((balance / total) * 100 <= 50) {
-        result = this.purchaseMessages.partGreater;
+        paymentStatus = this.purchaseMessages.partGreater;
       } else if ((balance / total) * 100 > 50) {
-        result = this.purchaseMessages.partLess;
+        paymentStatus = this.purchaseMessages.partLess;
       }
     }
 
     return Object.assign(state, {
       hideTotal,
       hideBalance,
-      result
+      paymentStatus
     });
   }
 
   render() {
-    const { hideTotal, hideBalance, total, balance, result, purchase } = this.mapBussinesRules(this.state);
+    const { hideTotal, hideBalance, total, balance, paymentStatus, purchase } = this.mapBussinesRules(this.state);
     const totalBalanceStyles = {
       display: 'flex',
       marginTop: '5px'
@@ -98,8 +100,8 @@ class PaymentStatus extends React.Component {
             onChange={this.onBalanceChange}
           />
         </div>
-        <ResultField
-          result={result}
+        <PaymentStatusField
+          paymentStatus={paymentStatus}
         />
       </div>
     );
@@ -117,8 +119,8 @@ class PurchaseField extends React.Component {
   render() {
     return (
       <div>
-        <span className="PaymentStatus-purchaseOrder--label control-label">Purchase Order</span>
-        <div className="PaymentStatus-purchaseOrder--field"><input type="checkbox" checked={this.props.purchase} onChange={this.onToggle} /></div>
+        <span className="PaymentStatus-purchaseOrder--field"><input type="checkbox" checked={this.props.purchase} onChange={this.onToggle} /></span>
+        <span className="PaymentStatus-purchaseOrder--label control-label" style={{marginLeft: '5px', fontWeight: 'bold'}}>Purchase order</span>
       </div>
     );
   }
@@ -174,12 +176,12 @@ class TotalField extends React.Component {
   }
 }
 
-class ResultField extends React.Component {
+class PaymentStatusField extends React.Component {
   render() {
     return (
       <div style={{marginTop: '5px'}}>
-        <span className="PaymentStatus-result--label control-label">Payment Status</span>
-        <div className="PaymentStatus-result--field"><input type="text" className="form-control" disabled="true" value={this.props.result} /></div>
+        <span className="PaymentStatus-paymentStatus--label control-label">Payment Status</span>
+        <div className="PaymentStatus-paymentStatus--field"><input type="text" className="form-control" disabled="true" value={this.props.paymentStatus} /></div>
       </div>
     );
   }

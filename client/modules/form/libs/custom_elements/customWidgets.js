@@ -23,8 +23,8 @@ let PaymentStatusWidget = (props) => {
 
     return React.createElement(PaymentStatus, {
         onChange(state) {
-          const {balance, total, result, purchase} = state;
-          return _onChange({balance, total, result, purchase});
+          const {balance, total, paymentStatus, purchase} = state;
+          return _onChange({balance, total, paymentStatus, purchase});
         }
     })
 };

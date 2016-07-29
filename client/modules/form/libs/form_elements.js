@@ -88,7 +88,7 @@ const elements = {
     def: { type: 'string', title: ' ', default: {
       total: 0,
       balance: 0,
-      result: '',
+      paymentStatus: '',
       purchase: false}
     },
     ui: {
