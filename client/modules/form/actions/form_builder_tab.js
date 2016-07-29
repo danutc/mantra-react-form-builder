@@ -4,12 +4,6 @@ export default {
     let form_fields = LocalState.get('FORM_FIELDS')
     let selected = LocalState.get('FORM:SELECTED_ELEMENT')
 
-    console.log('selected ')
-
-    console.log(selected)
-
-    console.log(order)
-
     if (selected && order) {
       let reArrange = (fields, id, order) => {
 
