@@ -56,6 +56,7 @@ function DraggableFieldContainer(props) {
     dragData,
     onEdit,
     onDelete,
+    onClick,
     onDoubleClick,
     onDrop
   } = props;
@@ -64,7 +65,7 @@ function DraggableFieldContainer(props) {
     <Draggable type="moved-field" data={dragData}>
       <Droppable types={["field", "moved-field"]}
         onDrop={onDrop}>
-        <div className="row editable-field" onDoubleClick={onDoubleClick}>
+        <div className="row editable-field" onClick={onClick} onDoubleClick={onDoubleClick}>
           <div className="col-sm-10">
             {children}
           </div>
@@ -92,6 +93,14 @@ export default class FormEditableField extends React.Component {
     event.preventDefault();
     var {editElement} = this.props;
     editElement(this.props['id']);
+  }
+
+  _setSelected(event) {
+    event.preventDefault();
+
+    let {setSelected} = this.props;
+    setSelected(this.props['id']);
+    console.log('selected ' + this.props['id']);
   }
 
   _handleUpdate(form) {
@@ -149,6 +158,7 @@ export default class FormEditableField extends React.Component {
           dragData={props.name}
           onEdit={this._handleEdit.bind(this) }
           onDelete={this._handleDelete.bind(this) }
+          onClick={this._setSelected.bind(this) }
           onDoubleClick={this._handleEdit.bind(this) }
           onDrop={this._handleDrop.bind(this) }>
           <SchemaField {...props}
@@ -166,10 +176,11 @@ export default class FormEditableField extends React.Component {
         dragData={props.name}
         onEdit={this._handleEdit.bind(this) }
         onDelete={this._handleDelete.bind(this) }
+        onClick={this._setSelected.bind(this) }
         onDoubleClick={this._handleEdit.bind(this) }
         onDrop={this._handleDrop.bind(this) }>
         <SchemaField {...props}
-          onChange={(value) => console.log(value)}
+          onChange={(value) => console.log(value) }
           idSchema={{ id: this.props.id }}
           uiSchema={this.props.uiSchema}
           schema={this.props.schema}
