@@ -12,7 +12,6 @@ var schema = {
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState} = context();
-  
   if (!LocalState.get('FORM_FIELDS')) {
     LocalState.set('FORM_FIELDS', {});
   }
