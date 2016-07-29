@@ -69,6 +69,12 @@ class FormElementBar extends React.Component {
                 <i className="fa fa-plus-square" aria-hidden="true"></i> Wysiwyg
               </a>
             </div>
+
+            <div role="presentation" className="list-group-item field-list-entry">
+              <a href="#" onClick={this._addElementToPlayground.bind(this, 'paymentStatus') }>
+                <i className="fa fa-plus-square" aria-hidden="true"></i> Payment Status Field
+              </a>
+            </div>
             
           </div>
         </div>

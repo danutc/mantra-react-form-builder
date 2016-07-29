@@ -60,12 +60,6 @@ const elements = {
     edit: false,
     editSchema: commonEditFormSchema
   },
-  // Commented, because current implementation doesn't allow to select time
-  // 'datetime': {
-  //   def: { type: 'string', title: 'Date Time', format: 'date-time' },
-  //   edit: false,
-  //   editSchema: commonEditFormSchema
-  // },
   'email': {
     def: { type: 'string', title: 'Email', format: 'email' },
     edit: false,
@@ -93,6 +87,19 @@ const elements = {
     widget: { 'dateTime': 'widgetLoader::dateTime' },
     edit: false,
     editSchema: commonEditFormSchema
+  },
+  'paymentStatus': {
+    def: { type: 'string', title: ' ', default: {
+      total: 0,
+      balance: 0,
+      paymentStatus: '',
+      purchase: false}
+    },
+    ui: {
+      'ui:widget': 'paymentStatus'
+    },
+    widget: { 'paymentStatus': 'widgetLoader::paymentStatus' },
+    edit: false
   }
 }
 

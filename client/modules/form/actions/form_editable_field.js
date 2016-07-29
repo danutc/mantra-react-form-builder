@@ -1,4 +1,14 @@
 export default {
+  setSelected({LocalState}, id) {
+    if (!id) {
+      return LocalState.set(
+        'CANNOT_SELECT_NULL_ID', 'Id is required'
+      )
+    }
+
+    let form_fields = LocalState.get('FORM_FIELDS')
+    LocalState.set('FORM:SELECTED_ELEMENT', id);
+  },
   editElement({LocalState}, id) {
     if (!id) {
       return LocalState.set(
@@ -6,7 +16,6 @@ export default {
       )
     }
 
-    console.log('open editing mode')
     LocalState.set('CANNOT_FIND_THIS_ID_IN_FORM_FIELDS', null)
 
     var form_fields = LocalState.get('FORM_FIELDS')

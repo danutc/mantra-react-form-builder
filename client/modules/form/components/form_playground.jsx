@@ -24,10 +24,14 @@ class FormPlayground extends React.Component {
 
   _onChangeFromEditor(type, value) {
     var {saveFromEditor} = this.props
-    console.log(type)
-    console.log(value)
-
     saveFromEditor(type, value)
+  }
+
+  _computeFinalForm(event) {
+    event.preventDefault();
+    let {buildForm} = this.props;
+
+    buildForm();
   }
 
   render() {
@@ -44,7 +48,7 @@ class FormPlayground extends React.Component {
           <li><a href="#" data-target="#validation" data-toggle="tab">On Validation</a></li>
           <li><a href="#" data-target="#change" data-toggle="tab">On Change</a></li>
           <li><a href="#" data-target="#error" data-toggle="tab">On Error</a></li>
-          <li><a href="#" data-target="#preview" data-toggle="tab">Preview</a></li>
+          <li><a href="#" onClick={this._computeFinalForm.bind(this) } data-target="#preview" data-toggle="tab">Preview</a></li>
         </ul>
 
         <div className="tab-content">

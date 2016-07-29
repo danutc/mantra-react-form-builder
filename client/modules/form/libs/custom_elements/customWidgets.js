@@ -2,13 +2,15 @@ import assert from 'assert'
 import React from 'react'
 import Wysiwyg from './wysiwyg'
 import DateTime from './dateTime'
+import PaymentStatus from './paymentStatus';
 
 let WysiwygWidget = (props) => {
-  const {description, value, defaultValue, required, onChange} = props
+  const {description, value, defaultValue, required} = props;
+  const _onChange = props.onChange;
 
   return React.createElement(Wysiwyg, {
     onChange: function onChange (editorState) {
-      console.log(editorState.getCurrentContent().getPlainText())
+      return _onChange(editorState.getCurrentContent().getPlainText());
     },
     value: 'test',
     required: required,
@@ -16,6 +18,17 @@ let WysiwygWidget = (props) => {
     defaultValue: defaultValue
   })
 }
+
+let PaymentStatusWidget = (props) => {
+  const _onChange = props.onChange;
+
+  return React.createElement(PaymentStatus, {
+    onChange(state) {
+      const {balance, total, paymentStatus, purchase} = state;
+      return _onChange({balance, total, paymentStatus, purchase});
+    }
+  })
+};
 
 let DateTimeWidget = (props) => {
   const {description, value, defaultValue, required} = props;
@@ -36,6 +49,7 @@ let DateTimeWidget = (props) => {
 
 const widgetsMap = {
   'wysiwyg': WysiwygWidget,
+  'paymentStatus': PaymentStatusWidget,
   'dateTime': DateTimeWidget
 }
 
