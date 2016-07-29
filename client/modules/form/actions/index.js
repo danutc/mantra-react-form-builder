@@ -7,7 +7,6 @@ const actions = {
   form_element_bar,
   form_editable_field,
   form_playground,
-  form_builder_tab
-}
+form_builder_tab}
 
 export default actions

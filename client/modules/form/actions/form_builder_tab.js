@@ -28,7 +28,7 @@ export default {
         let nextPos = idx + order
 
         if (nextPos >= fields.length || nextPos < 0) {
-          return fields;
+          return fields
         }
 
         let tmp = tmpArr[idx]
@@ -47,8 +47,16 @@ export default {
         return f
       }
 
-
       form_fields = reArrange(form_fields, selected, order)
+
+      // fake adding new items in ordet to let the preview tab re-render 
+      // mozilla form does not detect the change of the order, only on the element numbers
+
+      var seed = new Date().getTime()
+      form_fields['FAKE_ELEMENT_' + seed] = {'def': {'type': 'string','title': 'Input'},'edit': false,'editSchema': {'type': 'object','title': 'General','properties': {'label': {'type': 'string','title': 'Label'},'class': {'type': 'string','title': 'Class'},'name': {'type': 'string','title': 'Name'},'defaultValue': {'type': 'string','title': 'Default Value'},'placeHolder': {'type': 'string','title': 'Place Holder'},'hint': {'type': 'string','title': 'Hint'}}}}
+
+      console.log('save form')
+      console.log(JSON.stringify(form_fields))
       LocalState.set('FORM_FIELDS', form_fields)
     }
   }
