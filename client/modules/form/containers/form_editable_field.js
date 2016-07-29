@@ -10,6 +10,7 @@ export const composer = ({context}, onData) => {
 
 export const depsMapper = (context, actions) => {
   return {
+    setSelected: actions.form_editable_field.setSelected,
     closeEditing: actions.form_editable_field.closeEditing,
     editElement: actions.form_editable_field.editElement,
     deleteElement: actions.form_editable_field.deleteElement,
