@@ -60,7 +60,12 @@ function DraggableFieldContainer(props) {
     onDoubleClick,
     onDrop
   } = props;
-
+  const containEditSchema = !!children.props.editSchema;
+  let editButton = (containEditSchema) ? (
+    <button type="button" className="edit-btn" onClick={onEdit}>
+      <i className="glyphicon glyphicon-edit"/>
+    </button>) : '';
+  
   return (
     <Draggable type="moved-field" data={dragData}>
       <Droppable types={["field", "moved-field"]}
@@ -70,9 +75,7 @@ function DraggableFieldContainer(props) {
             {children}
           </div>
           <div className="col-sm-2 editable-field-actions btn-group">
-            <button type="button" className="edit-btn" onClick={onEdit}>
-              <i className="glyphicon glyphicon-edit"/>
-            </button>
+            {editButton}
             <button type="button" className="delete-btn" onClick={onDelete}>
               <i className="glyphicon glyphicon-remove-sign"/>
             </button>

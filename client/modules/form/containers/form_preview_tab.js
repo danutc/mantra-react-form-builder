@@ -11,8 +11,9 @@ export const composer = ({context}, onData) => {
 
   // save to the state so we can get it for the other action like save 
   LocalState.set('FINAL_FORM_ENTITY', finalForm)
+  let finalFormWithWidgets = customWidgetsProcessor(finalForm);
 
-  onData(null, {form: customWidgetsProcessor(LocalState.get('FINAL_FORM_ENTITY'))})
+  onData(null, {form: finalFormWithWidgets})
 }
 
 export const depsMapper = (context, actions) => ({
