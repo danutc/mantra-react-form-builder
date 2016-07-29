@@ -5,7 +5,7 @@ Technology:
 - form engine: [Mozilla Services react-jsonschema-form](https://github.com/mozilla-services/react-jsonschema-form)
 - schemas: [IETF JSON Schema Internet Draft Version 4](http://json-schema.org/documentation.html)
 - front end achitecture: [Mantra](https://github.com/kadirahq/mantra), [React](https://facebook.github.io/react/)
-- Framework: [meteor](www.meteor.com)
+- Framework: [Meteor](https://www.meteor.com/)
 - widgets: [Draft.js](https://facebook.github.io/draft-js/), [Ace Editor](https://github.com/securingsincity/react-ace)
 - sample form builder: [Kinto formbuilder](https://github.com/Kinto/formbuilder)
 
@@ -15,3 +15,7 @@ Technology:
 - `meteor` 
 - Go to [http://localhost:3000/form](http://localhost:3000/form) to see the result 
 - Happy hacking !!!
+
+##Develop a set of reusable extensions
+- Custom Widgets - [Custom widget components](https://github.com/mozilla-services/react-jsonschema-form#custom-widget-components)
+- Custom Fields - [Custom field components](https://github.com/mozilla-services/react-jsonschema-form#custom-field-components)
