@@ -83,6 +83,19 @@ const elements = {
     widget: { 'wysiwyg': 'widgetLoader::wysiwyg' },
     edit: false,
     editSchema: commonEditFormSchema
+  },
+  'paymentStatus': {
+    def: { type: 'string', title: ' ', default: {
+      total: 0,
+      balance: 0,
+      paymentStatus: '',
+      purchase: false}
+    },
+    ui: {
+      'ui:widget': 'paymentStatus'
+    },
+    widget: { 'paymentStatus': 'widgetLoader::paymentStatus' },
+    edit: false
   }
 }
 
