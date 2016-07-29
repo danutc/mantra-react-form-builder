@@ -92,7 +92,7 @@ class PaymentStatus extends React.Component {
       hideBalance = true;
       paymentStatus = this.purchaseMessages.purchaseOrder;
     } else {
-      if (balance == 0 && total == 0) {
+      if ((balance == 0 && total == 0) || balance == total) {
         paymentStatus = this.purchaseMessages.noPaymentReceived;
       } else if (balance == 0) {
         paymentStatus = this.purchaseMessages.paymentInFull;
