@@ -7,8 +7,6 @@ import {
   Immutable
 } from 'draft-js';
 
-const allowedNumericValues = /(^\ ?[0-9\.,]*$)/;
-
 class PaymentStatus extends React.Component {
   constructor(props) {
     super(props);
