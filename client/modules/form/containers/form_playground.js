@@ -8,6 +8,7 @@ export const composer = ({context}, onData) => {
 };
 
 export const depsMapper = (context, actions) => ({
+  buildForm: actions.form_playground.buildForm,
   saveFromEditor: actions.form_playground.saveFromEditor,
   saveForm: actions.form_playground.saveForm,
   clearForm: actions.form_playground.clearForm,
