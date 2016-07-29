@@ -34,7 +34,8 @@ export default {
         let ele = tmpArr[nextPos]
         let noMove = false 
 
-        for (let k in Object.keys(ele)) {
+        let keys = Object.keys(ele);
+        for (let k of keys) {
           if (k.indexOf("FAKE_ELEMENT_") != -1) {
             noMove = true; 
             break; 
@@ -42,7 +43,7 @@ export default {
         }
 
         if (noMove) return fields; 
-        
+
         let tmp = tmpArr[idx]
         tmpArr[idx] = tmpArr[nextPos]
         tmpArr[nextPos] = tmp
