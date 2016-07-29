@@ -29,6 +29,7 @@
     "react": "^15.1.0",
     "react-ace": "^3.4.1",
     "react-bootstrap-table": "^2.3.1",
+    "react-datetime": "git+https://github.com/xcomanche/react-datetime.git",
     "react-dom": "^15.1.0",
     "react-drag-and-drop": "^2.0.1",
     "react-jsonschema-form": "^0.33.1",
@@ -55,7 +56,9 @@
     "eslint-plugin-react": "4.3.x",
     "jsdom": "^8.0.4",
     "mocha": "2.x.x",
+    "moment": "^2.14.1",
     "react-addons-test-utils": "^15.0.0",
+    "react-bootstrap-datetimepicker": "0.0.22",
     "sinon": "1.17.x"
   }
 }
