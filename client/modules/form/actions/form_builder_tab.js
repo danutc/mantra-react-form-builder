@@ -32,17 +32,17 @@ export default {
         }
 
         let ele = tmpArr[nextPos]
-        let noMove = false 
+        let noMove = false
 
-        let keys = Object.keys(ele);
+        let keys = Object.keys(ele)
         for (let k of keys) {
-          if (k.indexOf("FAKE_ELEMENT_") != -1) {
-            noMove = true; 
-            break; 
+          if (k.indexOf('FAKE_ELEMENT_') != -1) {
+            noMove = true
+            break
           }
         }
 
-        if (noMove) return fields; 
+        if (noMove) return fields
 
         let tmp = tmpArr[idx]
         tmpArr[idx] = tmpArr[nextPos]
@@ -64,13 +64,23 @@ export default {
 
       // fake adding new items in ordet to let the preview tab re-render 
       // mozilla form does not detect the change of the order, only on the element numbers
+      // remember to buid the final form again in hte form_playgourn/buildForm in order 
+      // to remove the last one FAKE ELEMENT
+      let final_fields = {}
+      if (form_fields) {
+
+        // remove the fakelement 
+        for (let k in form_fields) {
+          if (k.indexOf('FAKE_ELEMENT_') == -1) {
+            final_fields[k] = form_fields[k]
+          }
+        }
+      }
 
       var seed = new Date().getTime()
-      form_fields['FAKE_ELEMENT_' + seed] = {'def': {'type': 'string','title': 'Input'},'edit': false,'editSchema': {'type': 'object','title': 'General','properties': {'label': {'type': 'string','title': 'Label'},'class': {'type': 'string','title': 'Class'},'name': {'type': 'string','title': 'Name'},'defaultValue': {'type': 'string','title': 'Default Value'},'placeHolder': {'type': 'string','title': 'Place Holder'},'hint': {'type': 'string','title': 'Hint'}}}}
+      final_fields['FAKE_ELEMENT_' + seed] = {'def': {'type': 'string','title': 'Input'},'edit': false,'editSchema': {'type': 'object','title': 'General','properties': {'label': {'type': 'string','title': 'Label'},'class': {'type': 'string','title': 'Class'},'name': {'type': 'string','title': 'Name'},'defaultValue': {'type': 'string','title': 'Default Value'},'placeHolder': {'type': 'string','title': 'Place Holder'},'hint': {'type': 'string','title': 'Hint'}}}}
 
-      console.log('save form')
-      console.log(JSON.stringify(form_fields))
-      LocalState.set('FORM_FIELDS', form_fields)
+      LocalState.set('FORM_FIELDS', final_fields)
     }
   }
 }
