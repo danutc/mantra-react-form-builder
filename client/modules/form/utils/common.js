@@ -1,12 +1,8 @@
 import customWidgetsProcessor from '../libs/custom_elements/customWidgets'
 import elements from '../libs/form_elements.js'
 
-var computeFinalForm = (LocalState) => {
-  var finalForm = LocalState.get('FINAL_FORM_ENTITY')
-
-  finalForm = finalForm || {}
-
-  var form_fields = customWidgetsProcessor(LocalState.get('FORM_FIELDS'))
+var buildForm = (form_fields) => {
+  let finalForm = finalForm || {}
   var schema = {
     type: 'object',
     properties: {}
@@ -37,5 +33,14 @@ var computeFinalForm = (LocalState) => {
   return finalForm
 }
 
-export default {
-computeFinalForm}
+var computeFinalForm = (LocalState) => {
+  var finalForm = LocalState.get('FINAL_FORM_ENTITY')
+
+  var form_fields = customWidgetsProcessor(LocalState.get('FORM_FIELDS'))
+
+  finalForm = buildForm(form_fields)
+
+  return finalForm
+}
+
+export default { computeFinalForm }
