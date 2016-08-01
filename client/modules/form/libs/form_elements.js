@@ -1,5 +1,5 @@
 import React from 'react'
-import deepmerge from 'deepmerge';
+import deepmerge from 'deepmerge'
 
 // --------------------------------------------------------------------------------
 // Common properties for each object
@@ -7,7 +7,7 @@ import deepmerge from 'deepmerge';
 var commonEditFormSchema = {
   type: 'object',
   title: 'General',
-  
+
   properties: {
     label: { type: 'string', title: 'Label' },
     class: { type: 'string', title: 'Class' },
@@ -16,7 +16,7 @@ var commonEditFormSchema = {
     placeHolder: { type: 'string', title: 'Place Holder' },
     hint: { type: 'string', title: 'Hint' }
   }
-};
+}
 
 var checkboxEditFormSchema = deepmerge(commonEditFormSchema, {
   properties: {
@@ -25,12 +25,36 @@ var checkboxEditFormSchema = deepmerge(commonEditFormSchema, {
     placeHolder: undefined,
     hint: undefined
   }
-});
+})
 
+// no changing name for the block. Block should follow the naming convention 
+// BLOCK_
+var blockEditFormSchema = _.omit(commonEditFormSchema, 'properties.name')
+
+console.log('block')
+console.log(blockEditFormSchema)
 // --------------------------------------------------------------------------------
 // Element Definition
 // --------------------------------------------------------------------------------
 const elements = {
+
+  // need to put def inside items to formalize the recursion when creating the preivew form
+  'block': {
+    def: {
+      type: 'array',
+      title: 'Block',
+      items: {
+        _SUB: {
+          def: {
+            type: 'object',
+            properties: {}
+          }
+        }
+      }
+    },
+    edit: false,
+    editSchema: blockEditFormSchema
+  },
   'input': {
     def: { type: 'string', title: 'Input' },
     edit: false,
@@ -90,9 +114,9 @@ const elements = {
   },
   'paymentStatus': {
     def: { type: 'string', title: ' ', default: {
-      total: 0,
-      balance: 0,
-      paymentStatus: '',
+        total: 0,
+        balance: 0,
+        paymentStatus: '',
       purchase: false}
     },
     ui: {

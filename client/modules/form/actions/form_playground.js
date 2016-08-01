@@ -1,14 +1,13 @@
 export default {
   buildForm({LocalState, Utils}) {
-
     let form_fields = LocalState.get('FORM_FIELDS')
-    let final_fields = {};
+    let final_fields = {}
     if (form_fields) {
-      
+
       // remove the fakelement 
       for (let k in form_fields) {
         if (k.indexOf('FAKE_ELEMENT_') == -1) {
-          final_fields[k] = form_fields[k];
+          final_fields[k] = form_fields[k]
         }
       }
     }

@@ -6,11 +6,15 @@ class FormBuilderTab extends React.Component {
   constructor(props) {
     super(props);
     this._keyPressDetect = this._keyPressDetect.bind(this);
+    this.renderNested = this.renderNested.bind(this);
   }
 
-  renderEditableField() {
-    if (this.props.formFields) {
-      return _.map(this.props.formFields, function (value, id) {
+  renderNested(formFields) {
+    let _this = this;
+    if (formFields) {
+      return _.map(formFields, function (value, id) {
+        console.log('id');
+        console.log(id);
         if (value && typeof value.ui === 'object'
           && value.ui['ui:widget']
           && typeof value.widget === 'object') {
@@ -18,16 +22,33 @@ class FormBuilderTab extends React.Component {
         }
 
         if (id.indexOf('FAKE_ELEMENT_') == -1) {
+
+          if (id.indexOf('Block_') != -1) {
+            let items = value['def']['items']['properties'];
+            let block = (
+              <FormEditableField key={id} id={id} uiSchema={value['ui']}
+                schema={value['def']} edit={value['edit']} editSchema={value['editSchema']}
+              />
+            )
+
+            return [block, _this.renderNested(items)];
+          }
+
           return (
             <FormEditableField key={id} id={id} uiSchema={value['ui']}
               schema={value['def']} edit={value['edit']} editSchema={value['editSchema']}
-            />
+              />
           );
         }
       });
     } else {
       return null;
     }
+  }
+
+  renderEditableField() {
+    let {formFields} = this.props
+    return this.renderNested(formFields)
   }
 
   componentDidMount() {
