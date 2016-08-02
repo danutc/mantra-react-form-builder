@@ -23,7 +23,7 @@ export default {
       idx++
     }
 
-    // convert object into array 
+    // convert object into array
     let arr = []
     for (let k in form_fields) {
       let obj = {}
@@ -35,19 +35,19 @@ export default {
     let pos = 0
 
     if (selected) {
-      if (selected.indexOf('Block_') != -1) {
-        let block = form_fields[selected]
-        block['def']['items']['_SUB']['def']['properties']['Input_' + seed] = elements[element]
+      if (selected.indexOf('Array_') != -1) {
+        let element = elements[element]
+        element['depth'] = 0
       } 
 
       pos = idx + 1
     } else {
-        pos = arr.length
+      pos = arr.length
     }
 
-    if (element == 'block') {
+    if (element == 'group') {
       let o = {}
-      o['Block_' + seed] = elements[element]
+      o['Array_' + seed] = elements[element]
       arr.splice(pos, 0, o)
     } else {
       let o = {}

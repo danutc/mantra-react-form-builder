@@ -91,3 +91,11 @@
   background: #f5f5f5;
   padding-left:3px;
 }
+
+.label-array {
+  font-size: 20px;
+  font-weight: 200px;
+  text-transform: capitalize;
+  padding-bottom: 4px;
+  border-bottom: 1px dotted #ddd;
+}

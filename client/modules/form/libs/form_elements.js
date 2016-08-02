@@ -27,33 +27,27 @@ var checkboxEditFormSchema = deepmerge(commonEditFormSchema, {
   }
 })
 
-// no changing name for the block. Block should follow the naming convention 
-// BLOCK_
-var blockEditFormSchema = _.omit(commonEditFormSchema, 'properties.name')
-
-console.log('block')
-console.log(blockEditFormSchema)
 // --------------------------------------------------------------------------------
 // Element Definition
 // --------------------------------------------------------------------------------
 const elements = {
-
-  // need to put def inside items to formalize the recursion when creating the preivew form
-  'block': {
+  'label': {
     def: {
-      type: 'array',
-      title: 'Block',
-      items: {
-        _SUB: {
-          def: {
-            type: 'object',
-            properties: {}
-          }
-        }
-      }
+      type: 'label'
     },
+    edit: 'false',
+  },
+  // need to put def inside items to formalize the recursion when creating the preivew form
+  'group': {
+    def: {
+      type: 'string', title: " "
+    },
+    ui: {
+      'ui:widget': 'group'
+    },
+    widget: { 'group': 'widgetLoader::group' },
     edit: false,
-    editSchema: blockEditFormSchema
+    editSchema: commonEditFormSchema
   },
   'input': {
     def: { type: 'string', title: 'Input' },
@@ -113,11 +107,15 @@ const elements = {
     editSchema: commonEditFormSchema
   },
   'paymentStatus': {
-    def: { type: 'string', title: ' ', default: {
+    def: { 
+      type: 'string', 
+      title: ' ',
+      default: {
         total: 0,
         balance: 0,
         paymentStatus: '',
-      purchase: false}
+        purchase: false
+      }
     },
     ui: {
       'ui:widget': 'paymentStatus'

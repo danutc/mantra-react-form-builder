@@ -1,8 +1,19 @@
 import assert from 'assert'
 import React from 'react'
+import Label from './label';
 import Wysiwyg from './wysiwyg'
 import DateTime from './dateTime'
 import PaymentStatus from './paymentStatus';
+
+let Array = (props) => {
+  const {value} = props;
+  console.log('array props '); 
+  console.log(props);
+
+  return React.createElement(Label, {
+    value: value
+  })
+}
 
 let WysiwygWidget = (props) => {
   const {description, value, defaultValue, required} = props;
@@ -50,7 +61,8 @@ let DateTimeWidget = (props) => {
 const widgetsMap = {
   'wysiwyg': WysiwygWidget,
   'paymentStatus': PaymentStatusWidget,
-  'dateTime': DateTimeWidget
+  'dateTime': DateTimeWidget,
+  'group': Array
 }
 
 export default function deepSchemaLookup (inputSchema) {
