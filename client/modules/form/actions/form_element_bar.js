@@ -35,11 +35,6 @@ export default {
     let pos = 0
 
     if (selected) {
-      if (selected.indexOf('Array_') != -1) {
-        let element = elements[element]
-        element['depth'] = 0
-      } 
-
       pos = idx + 1
     } else {
       pos = arr.length

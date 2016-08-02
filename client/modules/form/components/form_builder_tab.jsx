@@ -20,8 +20,13 @@ class FormBuilderTab extends React.Component {
         }
 
         if (id.indexOf('FAKE_ELEMENT_') == -1) {
+
+          let ext = value['def']['ext']
+          console.log('ext ...');
+          console.log(ext);
+          
           return (
-            <FormEditableField key={id} id={id} uiSchema={value['ui']}
+            <FormEditableField key={id} name={id} ext={ext} id={id} uiSchema={value['ui']}
               schema={value['def']} edit={value['edit']} editSchema={value['editSchema']}
               />
           );

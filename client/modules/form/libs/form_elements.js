@@ -14,7 +14,8 @@ var commonEditFormSchema = {
     name: { type: 'string', title: 'Name' },
     defaultValue: { type: 'string', title: 'Default Value' },
     placeHolder: { type: 'string', title: 'Place Holder' },
-    hint: { type: 'string', title: 'Hint' }
+    hint: { type: 'string', title: 'Hint' },
+    depth: { type: 'number', title: 'Depth of the element' }
   }
 }
 

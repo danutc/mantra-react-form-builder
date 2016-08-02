@@ -58,20 +58,36 @@ function DraggableFieldContainer(props) {
     onDelete,
     onClick,
     onDoubleClick,
-    onDrop
+    onDrop,
+    ext
   } = props;
   const containEditSchema = !!children.props.editSchema;
+
+  console.log('ext....') 
+  console.log(ext)
+
   let editButton = (containEditSchema) ? (
     <button type="button" className="edit-btn" onClick={onEdit}>
       <i className="glyphicon glyphicon-edit"/>
     </button>) : '';
   
+  let cls = "col-sm-10";
+
+  if (ext && ext['class']) {
+    let depth = ext['depth']
+
+    let wid = "col-sm-" + (10 - depth);
+    let ident = "col-md-offset-" + (depth);
+    cls = wid + " " + ident;
+  }
+
   return (
     <Draggable type="moved-field" data={dragData}>
       <Droppable types={["field", "moved-field"]}
         onDrop={onDrop}>
+
         <div className="row editable-field" onClick={onClick} onDoubleClick={onDoubleClick}>
-          <div className="col-sm-10">
+          <div className={cls}>
             {children}
           </div>
           <div className="col-sm-2 editable-field-actions btn-group">
@@ -161,6 +177,7 @@ export default class FormEditableField extends React.Component {
           dragData={props.name}
           onEdit={this._handleEdit.bind(this) }
           onDelete={this._handleDelete.bind(this) }
+          ext={props.ext}
           onClick={this._setSelected.bind(this) }
           onDoubleClick={this._handleEdit.bind(this) }
           onDrop={this._handleDrop.bind(this) }>
@@ -169,11 +186,13 @@ export default class FormEditableField extends React.Component {
             schema={this.state.schema}
             idSchema={{ id: props.name }} />
         </DraggableFieldContainer>
+        
       );
     }
 
     return (
       <DraggableFieldContainer
+        ext={props.ext}
         draggableType="moved-field"
         droppableTypes={["moved-field", "field"]}
         dragData={props.name}

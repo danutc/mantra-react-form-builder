@@ -106,6 +106,19 @@ export default {
       updateElement(element, 'placeHolder', params['placeHolder'])
     }
 
+    if (params && params['depth']) {
+      var cls = params['class'];
+      console.log('depth .... ');
+      console.log(params['depth']);
+      if (params['depth'] != 0) {
+        element['def']['ext'] = element['def']['ext'] || {} 
+        element['def']['ext']['depth'] = params['depth'];
+        element['def']['ext']['class'] = 'col-md-offset-' + params['depth'];
+      }
+
+      updateElement(element, 'depth', params['depth'])
+    }
+
     let name = ''
     if (params && params['name']) {
       name = params['name']
@@ -132,7 +145,7 @@ export default {
     }
 
     // console.log('STATE AFTER ===> ')
-    // console.log('Form Fields: ', form_fields)
+    console.log('Form Fields: ', form_fields)
     // console.log('END ')
     LocalState.set('FORM_FIELDS', form_fields)
   }
