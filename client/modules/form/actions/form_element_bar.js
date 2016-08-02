@@ -40,7 +40,7 @@ export default {
       pos = arr.length
     }
 
-    if (element == 'group') {
+    if (element == 'array') {
       let o = {}
       o['Array_' + seed] = elements[element]
       arr.splice(pos, 0, o)

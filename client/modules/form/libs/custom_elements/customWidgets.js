@@ -62,7 +62,7 @@ const widgetsMap = {
   'wysiwyg': WysiwygWidget,
   'paymentStatus': PaymentStatusWidget,
   'dateTime': DateTimeWidget,
-  'group': Array
+  'array': Array
 }
 
 export default function deepSchemaLookup (inputSchema) {

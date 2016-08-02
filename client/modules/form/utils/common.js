@@ -10,16 +10,24 @@ var buildForm = (form_fields) => {
 
   var ui = {}
   var globWidgets = {}
+  let parents = []; 
 
   for (var key in form_fields) {
-    ui[key] = form_fields[key]['ui']
-    schema['properties'][key] = form_fields[key]['def']
+    let element = form_fields[key]
+
+    // if element is array, push to stack 
+    if (element['ui']['ui:widget'] == 'array') {
+
+    }
+
+    ui[key] = element['ui']
+    schema['properties'][key] = element['def']
 
     // becareful, can override the other one
-    if (form_fields[key]['ui']) {
-      var widgets = form_fields[key]['widget']
+    if (element['ui']) {
+      var widgets = element['widget']
 
-      var widgetName = form_fields[key]['ui']['ui:widget']
+      var widgetName = element['ui']['ui:widget']
       var widgetCollection = widgets ? elements[widgetName]['widget'] : {}
 
       globWidgets = _.extend(globWidgets, widgets, widgetCollection)

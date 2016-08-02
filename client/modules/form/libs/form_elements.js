@@ -39,14 +39,14 @@ const elements = {
     edit: 'false'
   },
   // need to put def inside items to formalize the recursion when creating the preivew form
-  'group': {
+  'array': {
     def: {
       type: 'string', title: ' '
     },
     ui: {
-      'ui:widget': 'group'
+      'ui:widget': 'array'
     },
-    widget: { 'group': 'widgetLoader::group' },
+    widget: { 'array': 'widgetLoader::array' },
     edit: false,
     editSchema: commonEditFormSchema
   },
