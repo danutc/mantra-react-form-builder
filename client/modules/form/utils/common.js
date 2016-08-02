@@ -17,7 +17,7 @@ var buildForm = (form_fields) => {
 
     // becareful, can override the other one
     if (form_fields[key]['ui']) {
-      var widgets = form_fields[key]['widget'];
+      var widgets = form_fields[key]['widget']
 
       var widgetName = form_fields[key]['ui']['ui:widget']
       var widgetCollection = widgets ? elements[widgetName]['widget'] : {}

@@ -36,12 +36,12 @@ const elements = {
     def: {
       type: 'label'
     },
-    edit: 'false',
+    edit: 'false'
   },
   // need to put def inside items to formalize the recursion when creating the preivew form
   'group': {
     def: {
-      type: 'string', title: " "
+      type: 'string', title: ' '
     },
     ui: {
       'ui:widget': 'group'
@@ -108,8 +108,8 @@ const elements = {
     editSchema: commonEditFormSchema
   },
   'paymentStatus': {
-    def: { 
-      type: 'string', 
+    def: {
+      type: 'string',
       title: ' ',
       default: {
         total: 0,
@@ -124,6 +124,15 @@ const elements = {
     widget: { 'paymentStatus': 'widgetLoader::paymentStatus' },
     edit: false
   }
+}
+
+const DEFAULT_FORM = {
+  'schema': {
+    'title': 'A registration form',
+    'type': 'object'
+  },
+  'ui': {},
+  'widgets': {}
 }
 
 export default elements
