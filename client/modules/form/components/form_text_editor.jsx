@@ -19,10 +19,6 @@ class FormTextEditor extends React.Component {
   }
 
   _onChange(type, value) {
-
-    console.log(type);
-    console.log(value);
-
     this.data = {};
     this.data['type'] = type;
     this.data['value'] = value;

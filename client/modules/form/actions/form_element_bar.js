@@ -11,7 +11,7 @@ export default {
 
     let selected = LocalState.get('FORM:SELECTED_ELEMENT')
 
-    let form_fields = LocalState.get('FORM_FIELDS')
+    let form_fields = LocalState.get('FORM:FORM_FIELDS')
 
     // find position 
     let idx = 0
@@ -50,18 +50,13 @@ export default {
       arr.splice(pos, 0, o)
     }
 
-    // convert back the arr into obj 
-
-    console.log('arr')
-    console.log(JSON.stringify(arr))
+    // convert back the arr into obj
     let fields = {}
     for (let e of arr) {
       fields = Object.assign(fields, e)
     }
-
-    console.log('fields')
-    console.log(fields)
-    LocalState.set('FORM_FIELDS', fields)
+  
+    LocalState.set('FORM:FORM_FIELDS', fields)
   }
 
 }

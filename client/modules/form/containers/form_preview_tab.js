@@ -7,12 +7,12 @@ import elements from '../libs/form_elements.js'
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState, Utils} = context()
 
-  let finalForm = LocalState.get('FINAL_FORM_ENTITY')
+  let finalForm = LocalState.get('FORM:FINAL_FORM_ENTITY')
   finalForm = Utils.computeFinalForm(LocalState)
   console.log('final form');
   console.log(JSON.stringify(finalForm))
 
-  LocalState.set('FINAL_FORM_ENTITY', finalForm)
+  LocalState.set('FORM:FINAL_FORM_ENTITY', finalForm)
   let finalFormWithWidgets = customWidgetsProcessor(finalForm)
 
   onData(null, {form: finalFormWithWidgets})

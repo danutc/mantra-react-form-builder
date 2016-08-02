@@ -1,7 +1,6 @@
 export default {
   changeOrder: ({LocalState}, order) => {
-    console.log('... change order ...')
-    let form_fields = LocalState.get('FORM_FIELDS')
+    let form_fields = LocalState.get('FORM:FORM_FIELDS')
     let selected = LocalState.get('FORM:SELECTED_ELEMENT')
 
     if (selected && order) {
@@ -80,7 +79,7 @@ export default {
       var seed = new Date().getTime()
       final_fields['FAKE_ELEMENT_' + seed] = {'def': {'type': 'string','title': 'Input'},'edit': false,'editSchema': {'type': 'object','title': 'General','properties': {'label': {'type': 'string','title': 'Label'},'class': {'type': 'string','title': 'Class'},'name': {'type': 'string','title': 'Name'},'defaultValue': {'type': 'string','title': 'Default Value'},'placeHolder': {'type': 'string','title': 'Place Holder'},'hint': {'type': 'string','title': 'Hint'}}}}
 
-      LocalState.set('FORM_FIELDS', final_fields)
+      LocalState.set('FORM:FORM_FIELDS', final_fields)
     }
   }
 }

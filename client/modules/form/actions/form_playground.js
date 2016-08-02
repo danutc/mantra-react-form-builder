@@ -1,6 +1,6 @@
 export default {
   buildForm({LocalState, Utils}) {
-    let form_fields = LocalState.get('FORM_FIELDS')
+    let form_fields = LocalState.get('FORM:FORM_FIELDS')
     let final_fields = {}
     if (form_fields) {
 
@@ -12,25 +12,25 @@ export default {
       }
     }
 
-    LocalState.set('FORM_FIELDS', final_fields)
+    LocalState.set('FORM:FORM_FIELDS', final_fields)
 
     let finalForm = Utils.computeFinalForm(LocalState)
-    LocalState.set('FINAL_FORM_ENTITY', finalForm)
+    LocalState.set('FORM:FINAL_FORM_ENTITY', finalForm)
   },
   saveFromEditor({LocalState}, type, value) {
-    var FINAL_FORM_ENTITY = LocalState.get('FINAL_FORM_ENTITY')
+    var FINAL_FORM_ENTITY = LocalState.get('FORM:FINAL_FORM_ENTITY')
     FINAL_FORM_ENTITY[type] = `(${value})`
 
-    LocalState.set('FINAL_FORM_ENTITY', FINAL_FORM_ENTITY)
+    LocalState.set('FORM:FINAL_FORM_ENTITY', FINAL_FORM_ENTITY)
   },
   saveForm({LocalState}) {
-    var FINAL_FORM_ENTITY = LocalState.get('FINAL_FORM_ENTITY')
+    var FINAL_FORM_ENTITY = LocalState.get('FORM:FINAL_FORM_ENTITY')
     console.log(FINAL_FORM_ENTITY)
     alert(FINAL_FORM_ENTITY)
   },
   clearForm({LocalState}) {
     if (confirm('Are you sure you want to clear all the fields ?')) {
-      LocalState.set('FORM_FIELDS', {})
+      LocalState.set('FORM:FORM_FIELDS', {})
     }
   }
 }

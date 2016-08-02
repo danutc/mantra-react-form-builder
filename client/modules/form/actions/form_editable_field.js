@@ -6,7 +6,7 @@ export default {
       )
     }
 
-    let form_fields = LocalState.get('FORM_FIELDS')
+    let form_fields = LocalState.get('FORM:FORM_FIELDS')
     LocalState.set('FORM:SELECTED_ELEMENT', id);
   },
   editElement({LocalState}, id) {
@@ -18,11 +18,11 @@ export default {
 
     LocalState.set('CANNOT_FIND_THIS_ID_IN_FORM_FIELDS', null)
 
-    var form_fields = LocalState.get('FORM_FIELDS')
+    var form_fields = LocalState.get('FORM:FORM_FIELDS')
     var element = form_fields[id]
     element['edit'] = true
     form_fields[id] = element
-    LocalState.set('FORM_FIELDS', form_fields)
+    LocalState.set('FORM:FORM_FIELDS', form_fields)
   },
   closeEditing({LocalState}, id) {
     if (!id) {
@@ -33,12 +33,12 @@ export default {
 
     LocalState.set('CANNOT_FIND_THIS_ID_IN_FORM_FIELDS', null)
 
-    var form_fields = LocalState.get('FORM_FIELDS')
+    var form_fields = LocalState.get('FORM:FORM_FIELDS')
     var element = form_fields[id]
 
     element['edit'] = false
     form_fields[id] = element
-    LocalState.set('FORM_FIELDS', form_fields)
+    LocalState.set('FORM:FORM_FIELDS', form_fields)
   },
   deleteElement({LocalState}, id) {
     if (!id) {
@@ -49,9 +49,9 @@ export default {
 
     LocalState.set('CANNOT_FIND_THIS_ID_IN_FORM_FIELDS', null)
 
-    var form_fields = LocalState.get('FORM_FIELDS')
+    var form_fields = LocalState.get('FORM:FORM_FIELDS')
     delete form_fields[id]
-    LocalState.set('FORM_FIELDS', form_fields)
+    LocalState.set('FORM:FORM_FIELDS', form_fields)
   },
   updateElement({LocalState}, id, params) {
     if (!id) {
@@ -62,7 +62,7 @@ export default {
 
     LocalState.set('CANNOT_FIND_THIS_ID_IN_FORM_FIELDS', null)
 
-    var form_fields = LocalState.get('FORM_FIELDS')
+    var form_fields = LocalState.get('FORM:FORM_FIELDS')
 
     var element = form_fields[id]
     // console.log('updating')
@@ -108,8 +108,7 @@ export default {
 
     if (params && params['depth']) {
       var cls = params['class'];
-      console.log('depth .... ');
-      console.log(params['depth']);
+      
       if (params['depth'] != 0) {
         element['def']['ext'] = element['def']['ext'] || {} 
         element['def']['ext']['depth'] = params['depth'];
@@ -147,6 +146,6 @@ export default {
     // console.log('STATE AFTER ===> ')
     console.log('Form Fields: ', form_fields)
     // console.log('END ')
-    LocalState.set('FORM_FIELDS', form_fields)
+    LocalState.set('FORM:FORM_FIELDS', form_fields)
   }
 }

@@ -13,11 +13,11 @@ var schema = {
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState} = context();
 
-  if (!LocalState.get('FORM_FIELDS')) {
-    LocalState.set('FORM_FIELDS', {})
+  if (!LocalState.get('FORM:FORM_FIELDS')) {
+    LocalState.set('FORM:FORM_FIELDS', {})
   }
 
-  let customWidgets = customWidgetsProcessor(LocalState.get('FORM_FIELDS'));
+  let customWidgets = customWidgetsProcessor(LocalState.get('FORM:FORM_FIELDS'));
   
   onData(null, {
     formFields: customWidgets

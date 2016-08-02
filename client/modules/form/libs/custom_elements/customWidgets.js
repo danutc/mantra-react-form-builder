@@ -7,9 +7,6 @@ import PaymentStatus from './paymentStatus';
 
 let Array = (props) => {
   const {value} = props;
-  console.log('array props '); 
-  console.log(props);
-
   return React.createElement(Label, {
     value: value
   })

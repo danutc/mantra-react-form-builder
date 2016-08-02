@@ -63,9 +63,6 @@ function DraggableFieldContainer(props) {
   } = props;
   const containEditSchema = !!children.props.editSchema;
 
-  console.log('ext....') 
-  console.log(ext)
-
   let editButton = (containEditSchema) ? (
     <button type="button" className="edit-btn" onClick={onEdit}>
       <i className="glyphicon glyphicon-edit"/>
@@ -119,7 +116,6 @@ export default class FormEditableField extends React.Component {
 
     let {setSelected} = this.props;
     setSelected(this.props['id']);
-    console.log('selected ' + this.props['id']);
   }
 
   _handleUpdate(form) {
@@ -135,7 +131,6 @@ export default class FormEditableField extends React.Component {
   }
 
   _handleCancel(event) {
-    console.log('cancelling');
     var {closeEditing} = this.props;
     closeEditing(this.props.id);
   }
