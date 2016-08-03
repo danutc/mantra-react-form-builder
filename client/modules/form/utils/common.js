@@ -2,7 +2,7 @@ import customWidgetsProcessor from '../libs/custom_elements/customWidgets'
 import elements from '../libs/form_elements.js'
 
 var convertEleToArr = (element) => {
-  let array = Object.assign({}, element, {type: 'array', items: []})
+  let array = Object.assign({}, element, {'type': 'array', 'items': {}})
   return array
 }
 
@@ -17,66 +17,72 @@ var buildForm = (form_fields) => {
   var globWidgets = {}
   let parents = []
 
+  console.log('test');
   for (var key in form_fields) {
     let element = form_fields[key]
 
-    // if element is array, push to stack 
-    if (element && element['ui'] && element['ui']['ui:widget'] == 'array') {
-      parents.push(key)
-    }
-
-    // after clean the stack 
+    // if element is array, push to stack
     // if array, generate the array type to the tree 
     if (element && element['ui'] && element['ui']['ui:widget'] == 'array') {
+      console.log('push parent ..')
+      parents.push(key)
       let arr = convertEleToArr(element['def'])
       element['def'] = arr
     }
 
     // now find on the stack, if current have depth, then
     // push to the tree based on the stack
-    // if no ext, then out of the BIG parent, clear the stack
-    if (!element['ui'] || element['ui']['ui:widget'] != 'array') {
-      if (element['def']['ext'] == null) {
-        parents = []
-      } else {
-        if (element['def']['ext']['depth']) {
-          // now if the depth is less than the current length of the stack 
-          // then remove the outstanding of the stack, cos element already goes out of 
-          // those parents 
-          let depth = element['def']['ext']['depth']
-          let p = depth - parents.length
+    if (element['def']['ext'] == null) {
+      schema['properties'][key] = element['def']
+    } else {
+      if (element['def']['ext']['depth']) {
+        // now if the depth is less than the current length of the stack 
+        // then remove the outstanding of the stack, cos element already goes out of 
+        // those parents 
+        let depth = element['def']['ext']['depth']
+        let p = depth - parents.length
 
-          for (let i = 0; i < p; i++) {
-            parents.pop()
+        for (let i = 0; i < p; i++) {
+          console.log('pop parent ')
+          parents.pop()
+        }
+
+        let n = schema
+
+        // do  the jump and populate the parents
+        console.log('parents .. ')
+        console.log(parents)
+        for (let node of parents) {
+          if (n['properties']) {
+            n['properties'][node] = {"type": 'array',  "items": {}}
+            n = n['properties'][node]
+          } else if (n['items']) {
+              n['items'] = {"type": 'object',  "properties": {}}
+
+              if (n['items']['properties'][node] == null || Object.keys(n['items']['properties'][node]).length == 0) {
+                n['items']['properties'][node] =  {"type": 'array',  "items": {}}
+              }
+              
+              n = n['items']['properties'][node]
           }
         }
 
-        // build the dot notation based on depth again (just to make sure ...lol ...)
-        let dotNotation = parents.join('.')
-        let n = schema
-
-        // do  the jump 
-        for (let node of parents) {
-          n = n['properties'];
-          n = n[node]
-        }
-
-        console.log('n ...');
-        console.log(n);
-
         // travel to the node finish, then push to the array the element
-        if (n) {
-          n['items'] = n['items'] || [] 
-          n['items'].push(element['def'])
+        console.log('n ');
+        console.log(n);
+        if (n && element['def']['type'] != 'array') {
+
+          if (Object.keys(n['items']).length == 0) {
+            n['items'] = {type:'object', properties: {}}
+          }
+          
+          n['items']['properties'][key] = element['def']
         }
       }
-    } else {
-      schema['properties'][key] = element['def']
     }
 
-
     ui[key] = element['ui']
-    
+
     // becareful, can override the other one
     if (element['ui']) {
       var widgets = element['widget']
@@ -88,10 +94,10 @@ var buildForm = (form_fields) => {
     }
   }
 
-  console.log('... schema ... ')
-  console.log(JSON.stringify(schema))
+  console.log('... final schema ... ')
+  console.log((schema))
 
-  finalForm['schema'] = {}
+  finalForm['schema'] = schema
   finalForm['ui'] = {}
   finalForm['widgets'] = {}
 
