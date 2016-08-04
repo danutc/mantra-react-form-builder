@@ -60,9 +60,7 @@ var buildForm = (form_fields) => {
             }
 
             s = s['properties'][node]
-            u = u[node]['items']
           } else if (s['items']) {
-
             if (s['items'] == null || Object.keys(s['items']).length == 0) {
               s['items'] = {'type': 'object',  'properties': {}}
             }
@@ -72,10 +70,13 @@ var buildForm = (form_fields) => {
             }
 
             s = s['items']['properties'][node]
-
-            u = u || {'items': {}}
-            u = u['items']
           }
+
+          if (Object.keys(u).length == 0) {
+            u[node] = {items: {}}
+          }
+
+          u = u[node]['items']
         }
 
         // travel to the node finish, then push to the array the element 
@@ -103,8 +104,8 @@ var buildForm = (form_fields) => {
     //   var widgetName = element['ui']['ui:widget']
     //   var widgetCollection = widgets ? elements[widgetName]['widget'] : {}
 
-    //   globWidgets = _.extend(globWidgets, widgets, widgetCollection)
-    // }
+  //   globWidgets = _.extend(globWidgets, widgets, widgetCollection)
+  // }
   }
 
   console.log('... final schema ... ')
