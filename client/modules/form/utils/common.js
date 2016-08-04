@@ -46,44 +46,66 @@ var buildForm = (form_fields) => {
           parents.pop()
         }
 
-        let n = schema
-
+        let s = schema
+        let u = ui
         // do  the jump and populate the parents
         console.log('parents .. ')
         console.log(parents)
         for (let node of parents) {
-          if (n['properties']) {
-
-            if (Object.keys(n['properties'][node]).length == 0) {
-              n['properties'][node] = {'type': 'array',  'items': {}}
-            }
-            
-            n = n['properties'][node]
-          } else if (n['items']) {
-            n['items'] = {'type': 'object',  'properties': {}}
-
-            if (n['items']['properties'][node] == null || Object.keys(n['items']['properties'][node]).length == 0) {
-              n['items']['properties'][node] = {'type': 'array',  'items': {}}
+          if (s['properties']) {
+            if (Object.keys(s['properties'][node]).length == 0) {
+              s['properties'][node] = {'type': 'array',  'items': {}}
             }
 
-            n = n['items']['properties'][node]
+            if (u[node] == null || Object.keys(u[node]).length == 0) {
+              u[node] = {items: {}}
+            }
+
+            s = s['properties'][node]
+            u = u[node]['items']
+          } else if (s['items']) {
+            s['items'] = {'type': 'object',  'properties': {}}
+
+            if (s['items']['properties'][node] == null || Object.keys(s['items']['properties'][node]).length == 0) {
+              s['items']['properties'][node] = {'type': 'array',  'items': {}}
+            }
+
+            u['items'] = u['items'] || {}
+          
+            if (u['items'][node] == null || Object.keys(u['items'][node]).length == 0) {
+              u['items'][node] = {}
+            }
+
+            s = s['items']['properties'][node]
+            u = u['items'][node]
+
+            u = u || {}
           }
         }
 
         // travel to the node finish, then push to the array the element
-        console.log('n ')
-        console.log(n)
-        if (n && element['def']['type'] != 'array') {
-          if (Object.keys(n['items']).length == 0) {
-            n['items'] = {type: 'object', properties: {}}
+        console.log('s ')
+        console.log(s)
+
+        console.log('u ')
+        console.log(u)
+        if (s && element['def']['type'] != 'array') {
+          if (Object.keys(s['items']).length == 0) {
+            s['items'] = { type: 'object', properties: {}}
           }
 
-          n['items']['properties'][key] = element['def']
+          s['items']['properties'][key] = element['def']
+        }
+
+        if (u == null) {
+          u = {}
+        } else {
+          if (element['def']['type'] != 'array') {
+            u[key] = element['ui']
+          }
         }
       }
     }
-
-    ui[key] = element['ui']
 
     // becareful, can override the other one
     if (element['ui']) {
@@ -97,10 +119,13 @@ var buildForm = (form_fields) => {
   }
 
   console.log('... final schema ... ')
-  console.log((schema))
+  console.log(schema)
+
+  console.log('... final ui ...')
+  console.log(ui)
 
   finalForm['schema'] = schema
-  finalForm['ui'] = {}
+  finalForm['ui'] = ui
   finalForm['widgets'] = {}
 
   return finalForm
