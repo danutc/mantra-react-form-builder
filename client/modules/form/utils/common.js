@@ -23,7 +23,6 @@ var buildForm = (form_fields) => {
     // if element is array, push to stack
     // if array, generate the array type to the tree 
     if (element && element['ui'] && element['ui']['ui:widget'] == 'array') {
-      console.log('push parent ..')
       parents.push(key)
       let arr = convertEleToArr(element['def'])
       element['def'] = arr
@@ -42,7 +41,6 @@ var buildForm = (form_fields) => {
         let p = depth - parents.length
 
         for (let i = 0; i < p; i++) {
-          console.log('pop parent ')
           parents.pop()
         }
 
@@ -64,7 +62,10 @@ var buildForm = (form_fields) => {
             s = s['properties'][node]
             u = u[node]['items']
           } else if (s['items']) {
-            s['items'] = {'type': 'object',  'properties': {}}
+
+            if (s['items'] == null || Object.keys(s['items']).length == 0) {
+              s['items'] = {'type': 'object',  'properties': {}}
+            }
 
             if (s['items']['properties'][node] == null || Object.keys(s['items']['properties'][node]).length == 0) {
               s['items']['properties'][node] = {'type': 'array',  'items': {}}
@@ -78,9 +79,6 @@ var buildForm = (form_fields) => {
         }
 
         // travel to the node finish, then push to the array the element 
-        console.log('s ')
-        console.log(s)
-
         console.log('u ')
         console.log(u)
         if (s && element['def']['type'] != 'array') {
@@ -107,7 +105,6 @@ var buildForm = (form_fields) => {
 
     //   globWidgets = _.extend(globWidgets, widgets, widgetCollection)
     // }
-
   }
 
   console.log('... final schema ... ')
