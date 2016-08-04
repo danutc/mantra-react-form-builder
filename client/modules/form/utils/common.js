@@ -70,20 +70,14 @@ var buildForm = (form_fields) => {
               s['items']['properties'][node] = {'type': 'array',  'items': {}}
             }
 
-            u['items'] = u['items'] || {}
-          
-            if (u['items'][node] == null || Object.keys(u['items'][node]).length == 0) {
-              u['items'][node] = {}
-            }
-
             s = s['items']['properties'][node]
-            u = u['items'][node]
 
-            u = u || {}
+            u = u || {'items': {}}
+            u = u['items']
           }
         }
 
-        // travel to the node finish, then push to the array the element
+        // travel to the node finish, then push to the array the element 
         console.log('s ')
         console.log(s)
 
@@ -97,25 +91,23 @@ var buildForm = (form_fields) => {
           s['items']['properties'][key] = element['def']
         }
 
-        if (u == null) {
-          u = {}
-        } else {
-          if (element['def']['type'] != 'array') {
-            u[key] = element['ui']
-          }
+        u = u || {}
+        if (element['def']['type'] != 'array') {
+          u[key] = element['ui']
         }
       }
     }
 
     // becareful, can override the other one
-    if (element['ui']) {
-      var widgets = element['widget']
+    // if (element['ui']) {
+    //   var widgets = element['widget']
 
-      var widgetName = element['ui']['ui:widget']
-      var widgetCollection = widgets ? elements[widgetName]['widget'] : {}
+    //   var widgetName = element['ui']['ui:widget']
+    //   var widgetCollection = widgets ? elements[widgetName]['widget'] : {}
 
-      globWidgets = _.extend(globWidgets, widgets, widgetCollection)
-    }
+    //   globWidgets = _.extend(globWidgets, widgets, widgetCollection)
+    // }
+
   }
 
   console.log('... final schema ... ')
