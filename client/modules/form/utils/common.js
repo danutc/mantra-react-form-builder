@@ -17,7 +17,6 @@ var buildForm = (form_fields) => {
   var globWidgets = {}
   let parents = []
 
-  console.log('test');
   for (var key in form_fields) {
     let element = form_fields[key]
 
@@ -54,28 +53,31 @@ var buildForm = (form_fields) => {
         console.log(parents)
         for (let node of parents) {
           if (n['properties']) {
-            n['properties'][node] = {"type": 'array',  "items": {}}
+
+            if (Object.keys(n['properties'][node]).length == 0) {
+              n['properties'][node] = {'type': 'array',  'items': {}}
+            }
+            
             n = n['properties'][node]
           } else if (n['items']) {
-              n['items'] = {"type": 'object',  "properties": {}}
+            n['items'] = {'type': 'object',  'properties': {}}
 
-              if (n['items']['properties'][node] == null || Object.keys(n['items']['properties'][node]).length == 0) {
-                n['items']['properties'][node] =  {"type": 'array',  "items": {}}
-              }
-              
-              n = n['items']['properties'][node]
+            if (n['items']['properties'][node] == null || Object.keys(n['items']['properties'][node]).length == 0) {
+              n['items']['properties'][node] = {'type': 'array',  'items': {}}
+            }
+
+            n = n['items']['properties'][node]
           }
         }
 
         // travel to the node finish, then push to the array the element
-        console.log('n ');
-        console.log(n);
+        console.log('n ')
+        console.log(n)
         if (n && element['def']['type'] != 'array') {
-
           if (Object.keys(n['items']).length == 0) {
-            n['items'] = {type:'object', properties: {}}
+            n['items'] = {type: 'object', properties: {}}
           }
-          
+
           n['items']['properties'][key] = element['def']
         }
       }
