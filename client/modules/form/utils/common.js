@@ -32,6 +32,7 @@ var buildForm = (form_fields) => {
     // push to the tree based on the stack
     if (element['def']['ext'] == null) {
       schema['properties'][key] = element['def']
+      ui[key] = element['ui']
     } else {
       if (element['def']['ext']['depth']) {
         // now if the depth is less than the current length of the stack 
