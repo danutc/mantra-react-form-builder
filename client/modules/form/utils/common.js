@@ -131,4 +131,4 @@ var computeFinalForm = (LocalState) => {
   return finalForm
 }
 
-export default { computeFinalForm}
+export default {computeFinalForm}
