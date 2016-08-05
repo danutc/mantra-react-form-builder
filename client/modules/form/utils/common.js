@@ -65,9 +65,8 @@ let buildTree = (key, ele, parents, scheme, ui) => {
     for (let node of parents) {
 
       // we need to prevent the current node is also the array, 
-
       // because it is already pushed to the stack but does not  actually
-      // populate to the tree, then we dont jump 
+      // populate to the tree, so we dont jump 
       if (node['key'] == key) break; 
 
       // jump to the deadend in order to prepare for the next element
@@ -78,10 +77,10 @@ let buildTree = (key, ele, parents, scheme, ui) => {
       }
     }
 
-    // push the current container. 
-    // if element is the container, jump to the end point in order to let the next 
-    // one inserted. 
-    // if element is not container, stay in the current position 
+    
+    // if the element is the container, then populate the container 
+    // schema into the tree, otherwise, populate the element def 
+    // into the tree 
     if (ele['def']['type'] == 'array') {
       s[key] = arraySchema; 
     } else if (ele['def']['type'] == 'object') {
