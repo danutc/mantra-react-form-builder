@@ -1,9 +1,29 @@
 import customWidgetsProcessor from '../libs/custom_elements/customWidgets'
 import elements from '../libs/form_elements.js'
 
+let objSchema = {
+  type: 'object',
+  properties: { 
+
+  }
+};
+
+let arraySchema = {
+  type: 'array',
+  title: ' ',
+  items: {
+    ...objSchema
+  }
+};
+
 var convertEleToArr = (element) => {
-  let array = Object.assign({}, element, {'type': 'array', 'items': {}})
+  let array = Object.assign({}, element, arraySchema)
   return array
+}
+
+convertEleToObj = (element) => {
+  let obj = Object.assign({}, element, objSchema);
+  return obj
 }
 
 var buildForm = (form_fields) => {
@@ -49,6 +69,7 @@ var buildForm = (form_fields) => {
 
         let s = schema
         let u = ui
+      
         // do  the jump and populate the parents
         console.log('parents .. ')
         console.log(parents)
