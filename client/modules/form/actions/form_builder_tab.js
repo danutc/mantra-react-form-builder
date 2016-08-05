@@ -1,9 +1,30 @@
 export default {
+  changeDepth: ({LocalState}, depth) => {
+    let form_fields = LocalState.get('FORM:FORM_FIELDS')
+    let selected = LocalState.get('FORM:SELECTED_ELEMENT')
+
+    if (selected) {
+      let element = form_fields[selected];
+
+      if (element) {
+        element['def']['ext'] = element['def']['ext'] || {}
+        element['def']['ext']['depth'] = element['def']['ext']['depth'] || 0; ; 
+
+        let new_depth = element['def']['ext']['depth'] + depth;
+        if (new_depth >= 0) {
+          element['def']['ext']['depth'] = new_depth;
+          element['def']['ext']['class'] = 'col-md-offset-' + new_depth;
+        } 
+      }
+    }
+
+    LocalState.set('FORM:FORM_FIELDS', form_fields)
+  },
   changeOrder: ({LocalState}, order) => {
     let form_fields = LocalState.get('FORM:FORM_FIELDS')
     let selected = LocalState.get('FORM:SELECTED_ELEMENT')
 
-    if (selected && order) {
+    if (selected) {
       let reArrange = (fields, id, order) => {
 
         // first check the location of it

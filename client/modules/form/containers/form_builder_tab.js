@@ -3,13 +3,6 @@ import FormBuilderTab from '../components/form_builder_tab.jsx'
 import customWidgetsProcessor from '../libs/custom_elements/customWidgets'
 import React from 'react'
 
-var schema = {
-  type: 'object',
-  required: ['title'],
-  properties: {
-  }
-}
-
 export const composer = ({context}, onData) => {
   const {Meteor, Collections, LocalState} = context();
 
@@ -28,6 +21,7 @@ export const composer = ({context}, onData) => {
 export const depsMapper = (context, actions) => {
   return ({
     changeOrder: actions.form_builder_tab.changeOrder,
+    changeDepth: actions.form_builder_tab.changeDepth,
     context: () => context
   })}
 

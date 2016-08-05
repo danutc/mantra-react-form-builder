@@ -115,7 +115,7 @@ export default {
         element['def']['ext']['class'] = 'col-md-offset-' + params['depth'];
       }
 
-      updateElement(element, 'depth', params['depth'])
+      // updateElement(element, 'depth', params['depth'])
     }
 
     let name = ''

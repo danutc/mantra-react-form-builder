@@ -45,12 +45,17 @@ class FormBuilderTab extends React.Component {
 
   _keyPressDetect(event) {
 
-    let { changeOrder } = this.props;
+    let { changeOrder, changeDepth } = this.props;
 
+    console.log(event.keyCode);
     if (event.keyCode == 38) {
       changeOrder(-1)
     } else if (event.keyCode == 40) {
       changeOrder(1)
+    } else if (event.keyCode == 37) {
+      changeDepth(-1)
+    } else if (event.keyCode == 39) {
+      changeDepth(1)
     }
   }
 
