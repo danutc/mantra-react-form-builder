@@ -17,6 +17,8 @@ var buildForm = (form_fields) => {
   var globWidgets = {}
   let parents = []
 
+  console.log(JSON.stringify(form_fields));
+  
   for (var key in form_fields) {
     let element = form_fields[key]
 
@@ -32,7 +34,7 @@ var buildForm = (form_fields) => {
     // push to the tree based on the stack
     if (element['def']['ext'] == null) {
       schema['properties'][key] = element['def']
-      ui[key] = element['ui']
+      // ui[key] = element['ui']
     } else {
       if (element['def']['ext']['depth']) {
         // now if the depth is less than the current length of the stack 
@@ -90,7 +92,7 @@ var buildForm = (form_fields) => {
 
           s['items']['properties'][key] = element['def']
         }
-
+        
         u = u || {}
         if (element['def']['type'] != 'array') {
           u[key] = element['ui']
