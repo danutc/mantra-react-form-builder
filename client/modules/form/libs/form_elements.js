@@ -38,6 +38,17 @@ const elements = {
     },
     edit: 'false'
   },
+  'object': {
+    def: {
+      type: 'string', title: ' '
+    },
+    ui: {
+      'ui:widget': 'object'
+    },
+    widget: { 'object': 'widgetLoader::object' },
+    edit: false,
+    editSchema: commonEditFormSchema
+  },
   // need to put def inside items to formalize the recursion when creating the preivew form
   'array': {
     def: {

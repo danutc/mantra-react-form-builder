@@ -16,6 +16,12 @@ class FormElementBar extends React.Component {
         <div className="panel panel-default">
           <div className="panel-heading">Widgets</div>
           <div className="list-group">
+          <div role="presentation" className="list-group-item field-list-entry">
+              <a href="#" onClick={this._addElementToPlayground.bind(this, 'object') }>
+                <i className="fa fa-plus-square" aria-hidden="true"></i> Object
+              </a>
+            </div>
+
             <div role="presentation" className="list-group-item field-list-entry">
               <a href="#" onClick={this._addElementToPlayground.bind(this, 'array') }>
                 <i className="fa fa-plus-square" aria-hidden="true"></i> Array

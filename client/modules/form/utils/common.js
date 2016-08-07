@@ -42,7 +42,7 @@ let convertElement = (e, parents, key) => {
     let depth = e['def']['ext'] ? e['def']['ext']['depth'] : 0;
     obj = {key: key, type: 'array', depth: depth}
     e['def'] = convertEleToArr(e['def'])
-  } else if (e['def']['type'] == 'object') {
+  } else if (e && e['ui'] && e['ui']['ui:widget'] == 'object') {
     let depth = e['def']['ext'] ? e['def']['ext']['depth'] : 0;
     obj = {key: key, type: 'object', depth: depth} 
     e['def'] = convertEleToObj(e['def'])

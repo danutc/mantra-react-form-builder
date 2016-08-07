@@ -5,6 +5,20 @@ import Wysiwyg from './wysiwyg'
 import DateTime from './dateTime'
 import PaymentStatus from './paymentStatus';
 
+//--------------------------------------------------------------------------------
+// Object definition
+//--------------------------------------------------------------------------------
+let Obj = (props) => {
+  const {value} = props;
+  return React.createElement(Label, {
+    value: value
+  })
+}
+
+
+//--------------------------------------------------------------------------------
+// Array definition
+//--------------------------------------------------------------------------------
 let Array = (props) => {
   const {value} = props;
   return React.createElement(Label, {
@@ -12,6 +26,9 @@ let Array = (props) => {
   })
 }
 
+//--------------------------------------------------------------------------------
+// Wysiwyg definition
+//--------------------------------------------------------------------------------
 let WysiwygWidget = (props) => {
   const {description, value, defaultValue, required} = props;
   const _onChange = props.onChange;
@@ -59,7 +76,8 @@ const widgetsMap = {
   'wysiwyg': WysiwygWidget,
   'paymentStatus': PaymentStatusWidget,
   'dateTime': DateTimeWidget,
-  'array': Array
+  'array': Array,
+  'object': Obj,
 }
 
 export default function deepSchemaLookup (inputSchema) {
