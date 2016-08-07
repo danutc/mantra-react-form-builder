@@ -63,7 +63,6 @@ let buildTree = (key, ele, parents, scheme, ui) => {
     let s = scheme; 
 
     for (let node of parents) {
-
       // we need to prevent the current node is also the array, 
       // because it is already pushed to the stack but does not  actually
       // populate to the tree, so we dont jump 
@@ -76,7 +75,6 @@ let buildTree = (key, ele, parents, scheme, ui) => {
         s = s[node['key']]['items']['properties']
       }
     }
-
     
     // if the element is the container, then populate the container 
     // schema into the tree, otherwise, populate the element def 
