@@ -7,7 +7,10 @@ export default {
     }
 
     let form_fields = LocalState.get('FORM:FORM_FIELDS')
-    LocalState.set('FORM:SELECTED_ELEMENT', id);
+    LocalState.set(
+      'FORM:SELECTED_ELEMENT',
+      id === LocalState.get('FORM:SELECTED_ELEMENT')?undefined:id // unselect if current element is selected
+    );
   },
   editElement({LocalState}, id) {
     if (!id) {
@@ -15,7 +18,8 @@ export default {
         'CANNOT_FIND_THIS_ID_IN_FORM_FIELDS', 'This field is not available in the form fields'
       )
     }
-
+    //deselect element, prevent arrow keys moving element when editing
+    LocalState.set('FORM:SELECTED_ELEMENT', undefined)
     LocalState.set('CANNOT_FIND_THIS_ID_IN_FORM_FIELDS', null)
 
     var form_fields = LocalState.get('FORM:FORM_FIELDS')
@@ -108,9 +112,9 @@ export default {
 
     if (params && params['depth']) {
       var cls = params['class'];
-      
+
       if (params['depth'] != 0) {
-        element['def']['ext'] = element['def']['ext'] || {} 
+        element['def']['ext'] = element['def']['ext'] || {}
         element['def']['ext']['depth'] = params['depth'];
         element['def']['ext']['class'] = 'col-md-offset-' + params['depth'];
       }
