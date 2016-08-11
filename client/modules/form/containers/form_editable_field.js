@@ -3,9 +3,8 @@ import {useDeps, composeAll, composeWithTracker, compose} from 'mantra-core';
 import FormEditableField from '../components/form_editable_field.jsx';
 
 export const composer = ({context}, onData) => {
-  const {Meteor, Collections} = context();
-
-  onData(null, {});
+  const {Meteor, Collections, LocalState} = context();
+  onData(null, {selected_element:LocalState.get('FORM:SELECTED_ELEMENT')});
 };
 
 export const depsMapper = (context, actions) => {

@@ -59,7 +59,8 @@ function DraggableFieldContainer(props) {
     onClick,
     onDoubleClick,
     onDrop,
-    ext
+    ext,
+    selected
   } = props;
   const containEditSchema = !!children.props.editSchema;
 
@@ -67,7 +68,7 @@ function DraggableFieldContainer(props) {
     <button type="button" className="edit-btn" onClick={onEdit}>
       <i className="glyphicon glyphicon-edit"/>
     </button>) : '';
-  
+
   let cls = "col-sm-10";
 
   if (ext && ext['class']) {
@@ -78,12 +79,13 @@ function DraggableFieldContainer(props) {
     cls = wid + " " + ident;
   }
 
+
   return (
     <Draggable type="moved-field" data={dragData}>
       <Droppable types={["field", "moved-field"]}
         onDrop={onDrop}>
 
-        <div className="row editable-field" onClick={onClick} onDoubleClick={onDoubleClick}>
+        <div className="row editable-field" onClick={()=>{}} onDoubleClick={onDoubleClick}>
           <div className={cls}>
             {children}
           </div>
@@ -92,6 +94,7 @@ function DraggableFieldContainer(props) {
             <button type="button" className="delete-btn" onClick={onDelete}>
               <i className="glyphicon glyphicon-remove-sign"/>
             </button>
+            <input type="checkbox" value="" onClick={(event)=>{console.log(selected);onClick(event)}} checked={selected}/>
           </div>
         </div>
       </Droppable>
@@ -175,15 +178,18 @@ export default class FormEditableField extends React.Component {
           ext={props.ext}
           onClick={this._setSelected.bind(this) }
           onDoubleClick={this._handleEdit.bind(this) }
-          onDrop={this._handleDrop.bind(this) }>
+          onDrop={this._handleDrop.bind(this)}
+          selected={props.selected_element === this.props.id}>
           <SchemaField {...props}
             SchemaField={SchemaField}
             schema={this.state.schema}
             idSchema={{ id: props.name }} />
         </DraggableFieldContainer>
-        
+
       );
     }
+
+
 
     return (
       <DraggableFieldContainer
@@ -195,7 +201,8 @@ export default class FormEditableField extends React.Component {
         onDelete={this._handleDelete.bind(this) }
         onClick={this._setSelected.bind(this) }
         onDoubleClick={this._handleEdit.bind(this) }
-        onDrop={this._handleDrop.bind(this) }>
+        onDrop={this._handleDrop.bind(this) }
+        selected={props.selected_element === this.props.id}>
         <SchemaField {...props}
           onChange={(value) => console.log(value) }
           idSchema={{ id: this.props.id }}
