@@ -51,7 +51,7 @@ let convertElement = (e, parents, key) => {
   if (obj) parents.push(obj)
 }
 
-let buildTree = (key, ele, parents, scheme, ui) => {
+let buildTree = (key, ele, parents, scheme, ui, globWidgets) => {
   // if no depth, then push to 
   if (ele['def']['ext'] == null || ele['def']['ext']['depth'] == 0) {
     scheme[key] = ele['def'];
@@ -62,8 +62,17 @@ let buildTree = (key, ele, parents, scheme, ui) => {
       ui[key] = {}
     } else {
       ui[key] = ele['ui'];
+
+      if (ele['ui']) {
+        var widgets = ele['widget'];
+
+        var widgetName = ele['ui']['ui:widget']
+        var widgetCollection = widgets ? elements[widgetName]['widget'] : {}
+
+        globWidgets = _.extend(globWidgets, widgets, widgetCollection)
+      }
     }
-    
+
   } else {
     // now jump from the top of the tree to the correct node. at this moment, the parent already have 
     // the information of the parent node 
@@ -124,7 +133,7 @@ let buildForm = (form_fields) => {
     }
 
     convertElement(element, parents, key);
-    buildTree(key, element, parents, schema, ui);
+    buildTree(key, element, parents, schema, ui, globWidgets);
   }
 
   console.log('... final schema ... ')
@@ -135,7 +144,7 @@ let buildForm = (form_fields) => {
 
   finalForm['schema'] = { type: 'object', properties: { ...schema } }
   finalForm['ui'] = ui
-  finalForm['widgets'] = {}
+  finalForm['widgets'] = globWidgets
 
   return finalForm
 }
